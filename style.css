@@ -1,93 +1,83 @@
-
+/* --- GLOBAL STYLING --- */
 body {
     margin: 0;
     font-family: "Poppins", Arial, sans-serif;
-    background: #f4f6fa;
+    background: #eef1f7;
 }
 
-/* HEADER */
+/* --- HEADER --- */
 header {
     background: #4e73df;
     color: white;
     display: flex;
     justify-content: space-between;
-    padding: 15px 30px;
+    padding: 15px 25px;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .logo {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: bold;
 }
 
-.nav a, .nav select {
-    margin-left: 25px;
+.nav a {
+    margin-right: 25px;
     cursor: pointer;
-    font-size: 16px;
     color: white;
-    background: none;
-    border: none;
-    outline: none;
+    font-size: 18px;
 }
 
-.nav select {
-    color: black;
+#gradeSelect {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+/* --- MAIN CONTENT --- */
+.lesson-box {
     background: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-}
-
-/* CONTENT BOX */
-#quizBox {
-    width: 60%;
-    max-width: 700px;
-    margin: 50px auto;
+    width: 70%;
+    margin: 40px auto;
     padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+/* --- FEEDBACK POPUP --- */
+#feedbackBox {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background: white;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    width: 350px;
+    padding: 25px;
     border-radius: 12px;
     text-align: center;
-}
-
-h2 {
-    margin-bottom: 20px;
-}
-
-input[type="number"], input[type="text"] {
-    padding: 10px;
-    font-size: 16px;
-    width: 50%;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-button {
-    background: #1cc88a;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button:hover {
-    background: #17a673;
-}
-
-/* Feedback Box */
-#feedback {
-    margin: 20px auto 0;
-    padding: 15px 25px;
-    background: #e0e0e0;
-    color: #333;
-    font-size: 20px;
+    font-size: 26px;
     font-weight: bold;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#feedbackBox.show {
+    opacity: 1;
+}
+
+.hidden {
+    display: none;
+}
+
+/* --- SCORE --- */
+#scoreBox {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: #4e73df;
+    color: white;
+    padding: 15px 20px;
     border-radius: 12px;
-    width: fit-content;
-    max-width: 90%;
-    text-align: center;
-    transition: all 0.3s ease;
+    font-size: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
