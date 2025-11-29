@@ -1,114 +1,16 @@
-body {
-    margin: 0;
-    font-family: "Poppins", Arial, sans-serif;
-    background: #f5f7fa;
-    color: #333;
-}
 
-header {
-    background: #1e3a8a;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 30px;
-    align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.logo {
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.nav a {
-    margin-left: 25px;
-    cursor: pointer;
-    font-size: 18px;
-    text-decoration: none;
-    color: white;
-}
-
-.nav a:hover {
-    text-decoration: underline;
-}
-
-.subject-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
-    padding: 40px;
-}
-
-.subject-card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 25px;
-    text-align: center;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.subject-card:hover {
-    transform: translateY(-5px);
-    background: #1e40af;
-    color: white;
-}
-
-.lesson-box {
-    background: #ffffff;
-    width: 70%;
-    margin: 40px auto;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-    text-align: center;
-}
-
-#feedback {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #10b981;
-    color: white;
-    font-size: 32px;
-    font-weight: bold;
-    padding: 50px 70px;
-    border-radius: 20px;
-    text-align: center;
-    opacity: 0;
-    z-index: 1000;
-}
-
-#feedback.pop {
-    animation: pop 0.5s ease forwards;
-}
-
-@keyframes pop {
-    0%   { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
-    50%  { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-}
-
+/* Move scoreboard down so it doesn’t cover nav */
 #score {
     position: fixed;
-    top: 80px;
+    top: 80px; /* lower it from top */
     right: 30px;
-    background: #ffffff;
+    background: #fff;
     padding: 20px 30px;
     font-size: 24px;
     font-weight: bold;
     border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    color: #1e3a8a;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    color: #333;
     z-index: 100;
-}
-
-#gradeSelect {
-    font-size: 18px;
-    padding: 5px 10px;
-    margin-top: 10px;
+    transition: transform 0.3s ease;
 }
