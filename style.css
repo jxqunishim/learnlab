@@ -1,27 +1,20 @@
-/* ===========================
+/* =========================
    Global Styles
-=========================== */
+========================= */
 body {
     margin: 0;
-    font-family: 'Poppins', Arial, sans-serif;
-    background-color: #121212;
-    color: #e0e0e0;
+    font-family: "Poppins", Arial, sans-serif;
+    background: #0f1923;
+    color: #e0f7ff;
 }
 
-a {
-    color: #00bfff;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* ===========================
-   Header & Nav
-=========================== */
+/* Header */
 header {
-    background-color: #1a1a1a;
-    padding: 15px 30px;
+    background: #061826;
+    color: white;
     display: flex;
     justify-content: space-between;
+    padding: 15px 30px;
     align-items: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
@@ -29,146 +22,84 @@ header {
 .logo {
     font-size: 28px;
     font-weight: bold;
-    color: #00bfff;
 }
 
-.nav a {
-    margin-left: 20px;
-    font-size: 18px;
-    color: #00bfff;
-    transition: color 0.3s;
+.nav a, .nav select {
+    margin-left: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    color: #00d4ff;
 }
 
 .nav a:hover {
-    color: #66d9ff;
+    text-decoration: underline;
 }
 
-/* ===========================
-   Dropdown
-=========================== */
-#gradeSelect {
-    padding: 8px 12px;
-    font-size: 16px;
-    border-radius: 6px;
-    border: none;
-    background-color: #1f1f1f;
-    color: #e0e0e0;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-#gradeSelect:hover {
-    background-color: #2a2a2a;
-}
-
-/* ===========================
-   Quiz Cards
-=========================== */
-.card {
-    background-color: #1f1f1f;
-    padding: 25px;
-    margin: 30px auto;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 600px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.6);
-}
-
-/* ===========================
-   Inputs & Buttons
-=========================== */
-input[type="text"] {
-    padding: 10px;
-    width: 80%;
-    margin: 10px 0;
-    border-radius: 6px;
-    border: none;
-    font-size: 16px;
-}
-
-button {
-    background-color: #00bfff;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    color: #121212;
-    cursor: pointer;
-    margin-top: 10px;
-    font-size: 16px;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #66d9ff;
-}
-
-/* ===========================
-   Feedback Popup
-=========================== */
-#feedback {
+/* Feedback Popup */
+.feedback {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #00bfff;
-    color: #121212;
-    padding: 20px 30px;
-    border-radius: 12px;
-    font-size: 24px;
+    background: #061826;
+    color: #00d4ff;
+    padding: 25px 40px;
+    font-size: 22px;
     font-weight: bold;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0,212,255,0.7);
     display: none;
-    z-index: 9999;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+    z-index: 1000;
+    transition: all 0.3s ease;
 }
 
-@keyframes pop {
-    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
-    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+/* Cards */
+.card {
+    background: #0b1c2c;
+    border-radius: 15px;
+    padding: 25px;
+    margin: 20px auto;
+    max-width: 700px;
+    box-shadow: 0 5px 20px rgba(0,212,255,0.3);
 }
 
-.pop {
-    animation: pop 0.5s ease forwards;
-}
-
-/* ===========================
-   Progress Bar
-=========================== */
-.progress-container {
-    background-color: #2a2a2a;
+/* Quiz Input */
+input[type="text"], input[type="number"] {
+    padding: 10px;
+    width: 80%;
     border-radius: 10px;
-    overflow: hidden;
-    margin-top: 20px;
+    border: none;
+    margin-top: 10px;
+    font-size: 16px;
 }
 
-.progress-bar {
-    height: 15px;
-    background-color: #00bfff;
-    width: 0%;
-    transition: width 0.3s;
+/* Buttons */
+button {
+    background: #00d4ff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    color: #061826;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 16px;
+    transition: all 0.3s ease;
 }
 
-/* ===========================
-   Profile Section
-=========================== */
-.profile {
-    text-align: center;
-    padding: 20px;
+button:hover {
+    background: #00a3cc;
+    color: #fff;
 }
 
+/* Profile Section */
 .profile-pic {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    border: 3px solid #00bfff;
+    border: 3px solid #00d4ff;
     margin-bottom: 15px;
 }
 
@@ -177,42 +108,35 @@ button:hover {
     height: 60px;
     border-radius: 50%;
     margin: 5px;
-    border: 2px solid transparent;
+    border: 2px solid #0b1c2c;
     cursor: pointer;
-    transition: transform 0.3s, border 0.3s;
 }
 
-.avatar-options img:hover {
-    transform: scale(1.1);
+.avatar-options img.selected {
+    border: 3px solid #00d4ff;
 }
 
-.avatar-options .selected {
-    border: 2px solid #00bfff;
-}
-
-.achievements {
-    margin-top: 15px;
-}
-
-.badge {
-    display: inline-block;
-    background-color: #66d9ff;
-    color: #121212;
-    padding: 6px 10px;
+.achievements .badge {
+    background: #00d4ff;
+    color: #061826;
+    padding: 5px 12px;
+    margin: 3px;
     border-radius: 8px;
-    margin: 5px;
-    font-weight: bold;
+    display: inline-block;
 }
 
-/* ===========================
-   Hint Button
-=========================== */
-.hint-btn {
-    background-color: #ffb84d;
-    color: #121212;
-    margin-left: 10px;
+/* Progress Bar */
+.progress-container {
+    width: 100%;
+    background: #061826;
+    border-radius: 10px;
+    margin-top: 20px;
 }
 
-.hint-btn:hover {
-    background-color: #ffc966;
+.progress-bar {
+    height: 20px;
+    background: #00d4ff;
+    border-radius: 10px;
+    width: 0%;
+    transition: width 0.3s ease;
 }
