@@ -5,41 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>LearnLab</title>
     <link rel="stylesheet" href="style.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<header>
-    <h1 class="logo">LearnLab</h1>
+    <!-- HEADER -->
+    <header>
+        <h1 class="logo" onclick="loadHome()">LearnLab</h1>
 
-    <nav class="nav">
-        <a onclick="loadHome()">Home</a>
-        <a onclick="openProfile()">Profile</a>
-    </nav>
+        <nav class="nav">
+            <!-- Home Button -->
+            <a onclick="loadHome()">Home</a>
 
-    <select id="gradeSelect" onchange="selectGrade()">
-        <option value="">Grade</option>
-        <option>JK</option>
-        <option>SK</option>
-        <option>Grade 1</option>
-        <option>Grade 2</option>
-        <option>Grade 3</option>
-        <option>Grade 4</option>
-        <option>Grade 5</option>
-        <option>Grade 6</option>
-        <option>Grade 7</option>
-        <option>Grade 8</option>
-        <option>Grade 9</option>
-        <option>Grade 10</option>
-        <option>Grade 11</option>
-        <option>Grade 12</option>
-    </select>
-</header>
+            <!-- Profile Button -->
+            <a onclick="openProfile()">Profile</a>
 
-<main id="content" class="fade"></main>
+            <!-- Grade Dropdown -->
+            <select id="gradeSelect" onchange="selectGrade()">
+                <option value="">Select Grade</option>
+                <option value="JK">JK</option>
+                <option value="SK">SK</option>
+                <option value="Grade 1">Grade 1</option>
+                <option value="Grade 2">Grade 2</option>
+                <option value="Grade 3">Grade 3</option>
+                <option value="Grade 4">Grade 4</option>
+                <option value="Grade 5">Grade 5</option>
+                <option value="Grade 6">Grade 6</option>
+                <option value="Grade 7">Grade 7</option>
+                <option value="Grade 8">Grade 8</option>
+                <option value="Grade 9">Grade 9</option>
+                <option value="Grade 10">Grade 10</option>
+                <option value="Grade 11">Grade 11</option>
+                <option value="Grade 12">Grade 12</option>
+            </select>
+        </nav>
+    </header>
 
-<div id="feedbackBox" class="hidden"></div>
+    <!-- MAIN CONTENT -->
+    <main id="content"></main>
 
-<script src="script.js"></script>
+    <!-- POPUP FEEDBACK BOX -->
+    <div id="feedbackBox" class="hidden"></div>
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
 </body>
 </html>
