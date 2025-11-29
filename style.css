@@ -1,25 +1,16 @@
-/* ------------------ GENERAL ------------------ */
 body {
     margin: 0;
-    font-family: 'Poppins', Arial, sans-serif;
-    background-color: #0d1117; /* dark background */
-    color: #c9d1d9; /* light grey text */
-    transition: background-color 0.3s, color 0.3s;
+    font-family: Arial, sans-serif;
+    background: #0a1f44;
+    color: #cce0ff;
 }
 
-a {
-    cursor: pointer;
-}
-
-/* ------------------ HEADER ------------------ */
 header {
-    background-color: #0f161f; /* slightly lighter dark */
-    color: #58a6ff; /* light blue */
+    background: #001f3f;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 
 .logo {
@@ -27,181 +18,66 @@ header {
     font-weight: bold;
 }
 
-.nav a {
-    margin-left: 25px;
-    text-decoration: none;
-    color: #58a6ff;
-    font-size: 18px;
-    transition: color 0.2s;
-}
-
-.nav a:hover {
-    color: #1f6feb;
-}
-
-/* ------------------ MAIN CONTENT ------------------ */
-main {
-    padding: 40px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* ------------------ SUBJECT GRID ------------------ */
-.subject-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
-    width: 100%;
-    max-width: 1200px;
-}
-
-.subject-card {
-    background-color: #161b22;
-    border-radius: 12px;
-    padding: 25px;
-    text-align: center;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+.nav a, .nav select {
+    color: #cce0ff;
+    margin-left: 20px;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.subject-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.7);
-}
-
-/* ------------------ QUIZ BOX ------------------ */
-.quiz-box, .lesson-box {
-    background-color: #161b22;
-    width: 80%;
-    max-width: 800px;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-    margin: 20px 0;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.quiz-box:hover, .lesson-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-}
-
-/* ------------------ INPUTS & BUTTONS ------------------ */
-input[type="text"], input[type="number"], select {
-    width: 80%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 8px;
-    border: none;
+    text-decoration: none;
     font-size: 16px;
-    outline: none;
+}
+
+.lesson-box {
+    background: #112244;
+    padding: 25px;
+    margin: 40px auto;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px #000;
+    text-align: center;
+}
+
+input {
+    padding: 10px;
+    width: 70%;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
 }
 
 button {
-    background-color: #58a6ff;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background: #3399ff;
     border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
+    border-radius: 6px;
     color: #fff;
-    cursor: pointer;
     font-size: 16px;
-    margin-top: 15px;
-    transition: background-color 0.2s, transform 0.2s;
+    cursor: pointer;
 }
 
-button:hover {
-    background-color: #1f6feb;
-    transform: scale(1.05);
-}
-
-/* ------------------ FEEDBACK POPUP ------------------ */
-#feedback {
+.feedback-box {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #0f161f;
-    color: #58a6ff;
-    font-size: 24px;
+    background: #112244;
+    padding: 20px 40px;
+    border-radius: 12px;
+    font-size: 22px;
     font-weight: bold;
-    padding: 25px 40px;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.7);
-    opacity: 0;
-    pointer-events: none;
-    text-align: center;
-    z-index: 999;
-    transition: opacity 0.3s, transform 0.3s;
-}
-
-#feedback.pop {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.1);
-}
-
-/* ------------------ SCOREBOARD ------------------ */
-#scoreBoard {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #161b22;
-    padding: 15px 25px;
-    border-radius: 12px;
-    font-size: 18px;
-    box-shadow: 0 3px 15px rgba(0,0,0,0.7);
-}
-
-/* ------------------ PROFILE ------------------ */
-#profileBox {
-    background-color: #161b22;
-    width: 90%;
-    max-width: 600px;
-    padding: 30px;
-    border-radius: 12px;
-    margin: 30px auto;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    color: #cce0ff;
+    display: none;
+    box-shadow: 0 0 20px #3399ff;
     text-align: center;
 }
 
-#profileBox h2 {
-    color: #58a6ff;
+.feedback-box.pop {
+    animation: pop 0.5s ease forwards;
 }
 
-#selectedAvatar {
-    font-size: 50px;
-    margin: 15px 0;
-}
-
-/* ------------------ AVATARS ------------------ */
-.avatar {
-    font-size: 40px;
-    margin: 10px;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.avatar:hover {
-    transform: scale(1.2);
-}
-
-/* ------------------ ACHIEVEMENTS ------------------ */
-#achievementsBox {
-    margin-top: 20px;
-    text-align: left;
-}
-
-#achievementsBox h3 {
-    color: #58a6ff;
-}
-
-#achievementsList li {
-    margin: 5px 0;
-}
-
-/* ------------------ DROPDOWN ------------------ */
-select {
-    background-color: #0f161f;
-    color: #58a6ff;
+@keyframes pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
 }
