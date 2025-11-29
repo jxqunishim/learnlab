@@ -1,205 +1,262 @@
-/* ------------------------------
-   GOOGLE FONT
------------------------------- */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
-/* ------------------------------
-   GLOBAL STYLES
------------------------------- */
-body {
+/* ------------------ RESET ------------------ */
+* {
+    box-sizing: border-box;
     margin: 0;
+    padding: 0;
     font-family: 'Poppins', sans-serif;
-    background: #0A0F1C; /* Dark navy */
-    color: #DCEBFF;
-    overflow-x: hidden;
 }
 
-/* Fade animation */
-#content {
-    opacity: 0;
-    transition: 0.4s ease;
-}
-#content.show {
-    opacity: 1;
+/* ------------------ BODY ------------------ */
+body {
+    background-color: #0d1117;
+    color: #cdd9e5;
+    min-height: 100vh;
 }
 
-/* ------------------------------
-   HEADER
------------------------------- */
+/* ------------------ HEADER ------------------ */
 header {
-    background: #0D1326;
-    padding: 15px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #1B2A49;
-    position: sticky;
-    top: 0;
-    z-index: 999;
+    padding: 15px 30px;
+    background-color: #161b22;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
-.logo {
+header .logo {
     font-size: 28px;
-    font-weight: 700;
-    color: #4FA3FF;
+    font-weight: bold;
+    color: #1cc8ff;
     cursor: pointer;
+    transition: 0.3s;
 }
 
-/* NAVIGATION */
-.nav a {
-    color: #AFCBFF;
-    margin-left: 25px;
-    cursor: pointer;
-    font-size: 18px;
+header .logo:hover {
+    text-shadow: 0 0 10px #1cc8ff;
+}
+
+.nav a, .nav select {
+    margin-left: 20px;
+    font-size: 16px;
+    color: #cdd9e5;
     text-decoration: none;
+    cursor: pointer;
     transition: 0.3s;
 }
 
 .nav a:hover {
-    color: #4FA3FF;
-    text-shadow: 0px 0px 8px #4FA3FF;
+    color: #1cc8ff;
 }
 
-/* ------------------------------
-   GRADE DROPDOWN
------------------------------- */
-#gradeSelect {
-    background: #0D1326;
-    border: 1px solid #1B2A49;
-    padding: 8px 12px;
-    color: #DCEBFF;
-    font-size: 16px;
+.nav select {
+    background-color: #161b22;
+    border: 1px solid #1cc8ff;
+    color: #cdd9e5;
+    padding: 5px 10px;
     border-radius: 6px;
-    outline: none;
-    transition: 0.2s;
-    margin-left: 15px;
 }
 
-#gradeSelect:hover,
-#gradeSelect:focus {
-    border-color: #4FA3FF;
+/* ------------------ MAIN CONTENT ------------------ */
+main {
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    min-height: 80vh;
 }
 
-/* ------------------------------
-   MAIN CONTENT BOXES
------------------------------- */
-.lesson-box,
-.profile-box {
-    background: #111A33;
-    width: 60%;
-    margin: 50px auto;
-    padding: 35px;
-    border-radius: 14px;
-    box-shadow: 0px 0px 20px rgba(79, 163, 255, 0.15);
-    border: 1px solid #1B2A49;
-    animation: fadeUp 0.4s ease;
+/* ------------------ SUBJECT CARD ------------------ */
+.subject-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
 }
 
-/* fade upward animation */
-@keyframes fadeUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
+.subject-card {
+    background-color: #161b22;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(28, 200, 255, 0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-input {
+.subject-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px #1cc8ff;
+}
+
+.subject-card h3 {
+    color: #1cc8ff;
+    margin-bottom: 10px;
+}
+
+.subject-card p {
+    color: #cdd9e5;
+}
+
+/* ------------------ QUIZ BOX ------------------ */
+.quiz-box {
+    background-color: #161b22;
+    width: 100%;
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(28,200,255,0.3);
+}
+
+.quiz-box h2 {
+    color: #1cc8ff;
+    margin-bottom: 20px;
+}
+
+.quiz-box input[type="text"], 
+.quiz-box input[type="number"] {
     width: 80%;
-    padding: 12px;
-    border-radius: 8px;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+    border: 1px solid #1cc8ff;
+    background-color: #0d1117;
+    color: #cdd9e5;
+}
+
+.quiz-box button {
+    background-color: #1cc8ff;
+    color: #0d1117;
+    border: none;
+    padding: 12px 20px;
     margin-top: 15px;
-    border: 1px solid #2B3F67;
-    background: #0D1326;
-    color: #DCEBFF;
     font-size: 16px;
-    outline: none;
+    border-radius: 8px;
+    cursor: pointer;
     transition: 0.3s;
 }
 
-input:focus {
-    border-color: #4FA3FF;
-    box-shadow: 0px 0px 10px rgba(79, 163, 255, 0.4);
+.quiz-box button:hover {
+    background-color: #0ff;
+    box-shadow: 0 0 15px #0ff;
 }
 
-/* ------------------------------
-   BUTTONS
------------------------------- */
-button {
-    margin-top: 20px;
-    padding: 12px 24px;
-    font-size: 18px;
-    background: #4FA3FF;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
-
-button:hover {
-    background: #76B9FF;
-    box-shadow: 0px 0px 12px #4FA3FF;
-}
-
-/* ------------------------------
-   SCORE BOX (top-right)
------------------------------- */
-#scoreBox {
-    position: fixed;
-    top: 90px;
-    right: 20px;
-    background: #111A33;
-    padding: 15px 20px;
-    border-radius: 12px;
-    border: 1px solid #1B2A49;
-    box-shadow: 0px 0px 12px rgba(79, 163, 255, 0.2);
-    color: #4FA3FF;
-    font-size: 20px;
-    z-index: 900;
-}
-
-/* ------------------------------
-   FEEDBACK POPUP (center box)
------------------------------- */
+/* ------------------ FEEDBACK POPUP ------------------ */
 #feedbackBox {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.6);
-    background: #111A33;
+    transform: translate(-50%, -50%);
+    background-color: #161b22;
     padding: 25px 40px;
-    border-radius: 14px;
-    font-size: 28px;
-    font-weight: 600;
-    color: #DCEBFF;
-    border: 2px solid #4FA3FF;
+    border-radius: 15px;
+    box-shadow: 0 0 25px #1cc8ff;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #1cc8ff;
     opacity: 0;
-    transition: 0.3s ease;
-    box-shadow: 0px 0px 25px rgba(79, 163, 255, 0.35);
-    z-index: 1000;
+    pointer-events: none;
+    transition: opacity 0.5s, transform 0.5s;
+    z-index: 999;
 }
 
 #feedbackBox.show {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
-#feedbackBox.hidden {
+/* ------------------ MODALS ------------------ */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(13,17,23,0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #161b22;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 0 20px #1cc8ff;
+    position: relative;
+    text-align: center;
+}
+
+.modal .close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #1cc8ff;
+}
+
+.modal .close:hover {
+    color: #0ff;
+}
+
+.hidden {
     display: none;
 }
 
-/* ------------------------------
-   MOBILE RESPONSIVE
------------------------------- */
-@media (max-width: 900px) {
-    .lesson-box, .profile-box {
-        width: 90%;
-    }
-    #scoreBox {
-        top: 100px;
-        right: 10px;
-        padding: 10px 15px;
-        font-size: 16px;
-    }
-    button {
-        font-size: 16px;
-    }
+/* ------------------ PROFILE & AVATARS ------------------ */
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 10px;
+    cursor: pointer;
+    border: 2px solid #1cc8ff;
+    transition: 0.3s;
 }
+
+.avatar:hover {
+    box-shadow: 0 0 20px #1cc8ff;
+}
+
+#profileContent {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* ------------------ ACHIEVEMENTS ------------------ */
+#achievementsContent {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px,1fr));
+    gap: 15px;
+    justify-items: center;
+}
+
+.achievement {
+    background-color: #161b22;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #1cc8ff;
+    text-align: center;
+    color: #cdd9e5;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.achievement.unlocked {
+    background-color: #0ff;
+    color: #0d1117;
+    box-shadow: 0 0 15px #0ff;
+}
+
+/* ------------------ TRANSITIONS ------------------ */
+button, .nav a, .avatar, .subject-card {
+    transition: 0.3s all ease;
+}
+
