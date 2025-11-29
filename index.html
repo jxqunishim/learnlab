@@ -1,42 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LearnLab</title>
-<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <header>
     <h1 class="logo">LearnLab</h1>
     <nav class="nav">
         <a onclick="loadHome()">Home</a>
-        <a onclick="loadProfile()">Profile</a>
+        <select id="gradeDropdown" onchange="selectGrade()">
+            <option value="">Select Grade</option>
+            <option value="JK">JK</option>
+            <option value="K">K</option>
+            <option value="1">Grade 1</option>
+            <option value="2">Grade 2</option>
+            <option value="3">Grade 3</option>
+            <option value="4">Grade 4</option>
+            <option value="5">Grade 5</option>
+            <option value="6">Grade 6</option>
+            <option value="7">Grade 7</option>
+            <option value="8">Grade 8</option>
+            <option value="9">Grade 9</option>
+            <option value="10">Grade 10</option>
+            <option value="11">Grade 11</option>
+            <option value="12">Grade 12</option>
+        </select>
     </nav>
-    <div id="scoreBoard">Score: 0%</div>
 </header>
 
 <main id="content"></main>
 
-<!-- Feedback -->
 <div id="feedback" class="feedback-box"></div>
-
-<!-- Profile Box -->
-<div id="profileBox" class="profile-box" style="display:none;">
-    <h2>Profile</h2>
-    <p>Username: <span id="profileUsername"></span></p>
-    <p>Avatar: <span id="selectedAvatar">👤</span></p>
-    <h3>Achievements:</h3>
-    <ul id="achievementsList"></ul>
-</div>
-
-<!-- Login Modal -->
-<div id="loginModal" class="login-modal">
-    <h2>Welcome to LearnLab</h2>
-    <input type="text" id="usernameInput" placeholder="Enter your name">
-    <button onclick="login()">Login</button>
-    <button onclick="guestLogin()">Continue as Guest</button>
-</div>
 
 <script src="script.js"></script>
 </body>
