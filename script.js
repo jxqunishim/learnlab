@@ -1,3 +1,18 @@
+function showFeedback(message, correct=true) {
+    const feedbackDiv = document.getElementById("feedback");
+    feedbackDiv.textContent = message;
+    feedbackDiv.style.color = correct ? "#1cc88a" : "#e74a3b"; // green for correct, red for wrong
+    feedbackDiv.style.fontWeight = "bold";
+    feedbackDiv.style.fontSize = "18px";
+    feedbackDiv.style.marginTop = "15px";
+    feedbackDiv.style.transition = "opacity 0.3s";
+    feedbackDiv.style.opacity = "1";
+
+    // Optional: fade out after 2 seconds
+    setTimeout(() => {
+        feedbackDiv.style.opacity = "0";
+    }, 2000);
+}
 // Load homepage at start
 window.onload = function() {
     loadHome();
