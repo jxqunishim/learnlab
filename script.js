@@ -1,185 +1,154 @@
-/* -------------------------
-   Helper Functions
--------------------------- */
+let grade = "";
+let currentQuestionIndex = 0;
+let score = 0;
+let questions = [];
 
-function showFeedback(message, correct) {
-    const box = document.getElementById("feedbackBox");
-    box.style.display = "block";
-    box.textContent = message;
-
-    box.style.background = correct ? "#22c55e" : "#ef4444";
-    box.style.boxShadow = correct ? "0 0 25px #22c55e" : "0 0 25px #ef4444";
-
-    setTimeout(() => {
-        box.style.display = "none";
-    }, 1200);
-}
-
-function shuffle(array) {
-    return array.sort(() => Math.random() - 0.5);
-}
-
-function getQuestionCount(grade) {
-    if (["JK", "SK", "Grade 1", "Grade 2", "Grade 3"].includes(grade)) return 10;
-    if (["Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8"].includes(grade)) return 20;
-    return 30; // grades 9–12
-}
-
-/* -------------------------
-   QUESTION BANK
--------------------------- */
-
-const questionBank = {
-    math: {
-        easy: [
-            { q: "2 + 3 = ?", a: "5" },
-            { q: "7 - 4 = ?", a: "3" },
-            { q: "1 + 6 = ?", a: "7" },
-            { q: "5 - 2 = ?", a: "3" },
-            { q: "10 - 8 = ?", a: "2" }
-        ],
-        medium: [
-            { q: "12 + 15 = ?", a: "27" },
-            { q: "9 × 3 = ?", a: "27" },
-            { q: "45 ÷ 5 = ?", a: "9" },
-            { q: "8 × 7 = ?", a: "56" },
-            { q: "63 ÷ 9 = ?", a: "7" }
-        ],
-        hard: [
-            { q: "Solve: 2x + 5 = 17. What is x?", a: "6" },
-            { q: "Square root of 144?", a: "12" },
-            { q: "5² + 3² = ?", a: "34" },
-            { q: "Solve: 3x = 81", a: "27" },
-            { q: "What is 15% of 200?", a: "30" }
-        ]
-    },
-
-    reading: {
-        easy: [
-            { q: "Finish the sentence: 'The dog ran to the ____.'", a: "park" },
-            { q: "What color is the sky on a clear day?", a: "blue" },
-            { q: "A cat says ____.", a: "meow" }
-        ],
-        medium: [
-            { q: "In the sentence 'Sam ate a red apple', what color was the apple?", a: "red" },
-            { q: "What is the opposite of 'big'?", a: "small" },
-            { q: "Which word means the same as 'happy'?", a: "joyful" }
-        ],
-        hard: [
-            { q: "What is the main idea of a text called?", a: "theme" },
-            { q: "A story passed down generations is a ____.", a: "myth" },
-            { q: "What is a word with a similar meaning called?", a: "synonym" }
-        ]
-    },
-
-    science: {
-        easy: [
-            { q: "Plants need sunlight and ____ to grow.", a: "water" },
-            { q: "Humans breathe in ____.", a: "oxygen" },
-            { q: "The sun is a ____.", a: "star" }
-        ],
-        medium: [
-            { q: "Water freezes at ____°C.", a: "0" },
-            { q: "The Earth orbits the ____.", a: "sun" },
-            { q: "Humans have ____ senses.", a: "5" }
-        ],
-        hard: [
-            { q: "The powerhouse of the cell is the ____.", a: "mitochondria" },
-            { q: "H2O is the chemical formula for ____.", a: "water" },
-            { q: "Force that keeps us on the ground?", a: "gravity" }
-        ]
-    }
+const allQuestions = {
+    "JK": [
+        {q:"What color is the sky?", a:"blue"},
+        {q:"How many legs does a cat have?", a:"4"},
+        {q:"Which animal barks?", a:"dog"}
+    ],
+    "K": [
+        {q:"2 + 2 = ?", a:"4"},
+        {q:"What is the first letter of 'Apple'?", a:"a"},
+        {q:"Which day comes after Monday?", a:"tuesday"}
+    ],
+    "1": [
+        {q:"5 - 2 = ?", a:"3"},
+        {q:"Which is a fruit: Carrot or Banana?", a:"banana"},
+        {q:"How many wheels on a bicycle?", a:"2"}
+    ],
+    "2": [
+        {q:"7 + 3 = ?", a:"10"},
+        {q:"What is opposite of hot?", a:"cold"},
+        {q:"Which planet do we live on?", a:"earth"}
+    ],
+    "3": [
+        {q:"10 - 4 = ?", a:"6"},
+        {q:"Which is a mammal: Shark or Whale?", a:"whale"},
+        {q:"Which month comes after March?", a:"april"}
+    ],
+    "4": [
+        {q:"12 x 2 = ?", a:"24"},
+        {q:"Which is heavier: 1kg or 100g?", a:"1kg"},
+        {q:"Which is a vowel: B or E?", a:"e"}
+    ],
+    "5": [
+        {q:"50 ÷ 5 = ?", a:"10"},
+        {q:"Which gas do we breathe in?", a:"oxygen"},
+        {q:"How many sides does a hexagon have?", a:"6"}
+    ],
+    "6": [
+        {q:"6 x 6 = ?", a:"36"},
+        {q:"Water freezes at ___°C?", a:"0"},
+        {q:"Which is a synonym for 'happy'?", a:"joyful"}
+    ],
+    "7": [
+        {q:"15 + 25 = ?", a:"40"},
+        {q:"Which organ pumps blood?", a:"heart"},
+        {q:"Who wrote 'Romeo and Juliet'?", a:"shakespeare"}
+    ],
+    "8": [
+        {q:"144 ÷ 12 = ?", a:"12"},
+        {q:"Which element has symbol O?", a:"oxygen"},
+        {q:"Which is a simile: 'as brave as a lion'?", a:"yes"}
+    ],
+    "9": [
+        {q:"Square root of 81?", a:"9"},
+        {q:"H2O is ____?", a:"water"},
+        {q:"Who discovered gravity?", a:"newton"}
+    ],
+    "10": [
+        {q:"Derivative of x^2?", a:"2x"},
+        {q:"What is photosynthesis?", a:"process by which plants make food"},
+        {q:"Which planet is closest to sun?", a:"mercury"}
+    ],
+    "11": [
+        {q:"Integrate 2x dx?", a:"x^2 + c"},
+        {q:"Who wrote '1984'?", a:"orwell"},
+        {q:"What is 1 atm in pascals?", a:"101325"}
+    ],
+    "12": [
+        {q:"Derivative of sin(x)?", a:"cos(x)"},
+        {q:"Solve for x: 2x + 3 = 7", a:"2"},
+        {q:"Which element has atomic number 6?", a:"carbon"}
+    ]
 };
 
-/* -------------------------
-   QUIZ ENGINE
--------------------------- */
-
-let currentQuiz = [];
-let currentIndex = 0;
-let correctAnswers = 0;
-
-function startQuiz(subject) {
-    const grade = document.getElementById("gradeSelect").value;
-    if (!grade) {
-        showFeedback("Select Grade First!", false);
-        return;
-    }
-
-    let difficulty = "easy";
-    if (["Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8"].includes(grade)) difficulty = "medium";
-    if (["Grade 9", "Grade 10", "Grade 11", "Grade 12"].includes(grade)) difficulty = "hard";
-
-    let questionCount = getQuestionCount(grade);
-
-    currentQuiz = shuffle([...questionBank[subject][difficulty]]).slice(0, questionCount);
-    currentIndex = 0;
-    correctAnswers = 0;
-
-    loadQuestion();
+function selectGrade(){
+    grade = document.getElementById("gradeSelect").value;
+    if(!grade) return;
+    currentQuestionIndex = 0;
+    score = 0;
+    questions = shuffleArray(allQuestions[grade].slice()); // copy & shuffle
+    loadQuiz();
 }
 
-function loadHome() {
+function loadHome(){
     document.getElementById("content").innerHTML = `
-        <div class="lesson-box">
-            <h2>Welcome to LearnLab</h2>
-            <p>Select a subject above to begin your quiz!</p>
-        </div>
+        <h2 style="text-align:center; margin-top:35px;">Welcome to LearnLab</h2>
+        <p style="text-align:center;">Select your grade from the dropdown above to start a quiz.</p>
     `;
-    document.getElementById("scoreBox").textContent = "Score: 0%";
 }
 
-function loadQuestion() {
-    if (currentIndex >= currentQuiz.length) {
-        endQuiz();
+function loadQuiz(){
+    if(currentQuestionIndex >= questions.length){
+        showResult();
         return;
     }
-
-    const q = currentQuiz[currentIndex];
-
+    let q = questions[currentQuestionIndex];
     document.getElementById("content").innerHTML = `
-        <div class="lesson-box">
-            <h2>Question ${currentIndex + 1} of ${currentQuiz.length}</h2>
-            <p style="font-size:22px; margin-top:10px;">${q.q}</p>
-            <input id="answerInput" placeholder="Your answer...">
-            <br>
-            <button onclick="submitAnswer()">Submit</button>
+        <div id="quizBox">
+            <h2>Question ${currentQuestionIndex+1} of ${questions.length}</h2>
+            <p>${q.q}</p>
+            <input id="answerInput" type="text" placeholder="Your answer"/>
+            <br/>
+            <button onclick="checkAnswer()">Submit</button>
+            <div id="feedback"></div>
         </div>
     `;
 }
 
-function submitAnswer() {
-    let userAns = document.getElementById("answerInput").value.trim().toLowerCase();
-    let correctAns = currentQuiz[currentIndex].a.toLowerCase();
+function checkAnswer(){
+    let input = document.getElementById("answerInput").value.trim().toLowerCase();
+    let correctAnswer = questions[currentQuestionIndex].a.toLowerCase();
+    const feedbackDiv = document.getElementById("feedback");
 
-    if (userAns === correctAns) {
-        correctAnswers++;
-        showFeedback("Correct!", true);
+    if(input === correctAnswer){
+        feedbackDiv.textContent = "✅ Correct!";
+        feedbackDiv.style.color = "#1cc88a";
+        score++;
     } else {
-        showFeedback("Incorrect!", false);
+        feedbackDiv.textContent = `❌ Wrong! Correct: ${questions[currentQuestionIndex].a}`;
+        feedbackDiv.style.color = "#e74a3b";
     }
 
-    document.getElementById("scoreBox").textContent =
-        `Score: ${Math.round((correctAnswers / currentQuiz.length) * 100)}%`;
-
-    currentIndex++;
-    setTimeout(loadQuestion, 500);
+    currentQuestionIndex++;
+    setTimeout(loadQuiz, 1000);
 }
 
-function endQuiz() {
-    let score = Math.round((correctAnswers / currentQuiz.length) * 100);
-    let message = score >= 50 ? "You Passed! 🎉" : "You Failed ❌";
-
+function showResult(){
+    let percent = Math.round((score / questions.length) * 100);
+    let message = percent >= 50 ? "🎉 Passed!" : "😢 Failed!";
     document.getElementById("content").innerHTML = `
-        <div class="lesson-box">
-            <h2>Quiz Complete</h2>
-            <h3>Your Score: ${score}%</h3>
-            <h2>${message}</h2>
-            <button onclick="loadHome()">Return Home</button>
+        <div id="quizBox">
+            <h2>Quiz Completed</h2>
+            <p>Score: ${score} / ${questions.length} (${percent}%)</p>
+            <p>${message}</p>
+            <button onclick="loadHome()">Back to Home</button>
         </div>
     `;
 }
 
-/* Load home on start */
-window.onload = loadHome;
+// Shuffle utility
+function shuffleArray(arr){
+    for(let i=arr.length-1; i>0; i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
 
+// Load home on page load
+window.onload = loadHome;
