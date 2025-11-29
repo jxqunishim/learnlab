@@ -1,4 +1,10 @@
-function showFeedback(message, correct=true) {
+function showFeedback(// Example: Math questions
+const mathQuestions = [
+    { question: "7 + 6 = ?", answer: 13 },
+    { question: "5 x 3 = ?", answer: 15 },
+    { question: "12 - 4 = ?", answer: 8 }
+];
+) {
     const feedbackDiv = document.getElementById("feedback");
     feedbackDiv.textContent = message;
     feedbackDiv.style.fontWeight = "bold";
