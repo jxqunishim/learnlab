@@ -4,14 +4,14 @@ const mathQuestions = [
     { question: "5 x 3 = ?", answer: 15 },
     { question: "12 - 4 = ?", answer: 8 }
 ];
-) {
+
+function showFeedback(message, correct) {
     const feedbackDiv = document.getElementById("feedback");
     feedbackDiv.textContent = message;
     feedbackDiv.style.fontWeight = "bold";
     feedbackDiv.style.fontSize = "18px";
     feedbackDiv.style.marginTop = "15px";
 
-    // Different colors for different positive messages
     if (correct) {
         if (message.includes("Brilliant")) feedbackDiv.style.color = "#f1c40f"; // gold
         else if (message.includes("Perfect")) feedbackDiv.style.color = "#3498db"; // blue
@@ -21,15 +21,15 @@ const mathQuestions = [
         feedbackDiv.style.color = "#e74a3b"; // red for wrong
     }
 
-    // Pop animation
-    feedbackDiv.classList.remove("pop"); 
+    feedbackDiv.classList.remove("pop");
     void feedbackDiv.offsetWidth; // force reflow
     feedbackDiv.classList.add("pop");
 
-    // Optional fade out after 2 seconds
     setTimeout(() => {
         feedbackDiv.style.opacity = "0";
     }, 2000);
+}
+);
 }
 
 
