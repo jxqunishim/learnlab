@@ -1,24 +1,56 @@
-// Questions
+// Questions per subject
 const questions = {
     math: [
         { q: "7 + 6 = ?", a: "13" },
         { q: "5 x 3 = ?", a: "15" },
-        { q: "12 - 4 = ?", a: "8" }
+        { q: "12 - 4 = ?", a: "8" },
+        { q: "9 / 3 = ?", a: "3" },
+        { q: "15 - 7 = ?", a: "8" },
+        { q: "6 x 6 = ?", a: "36" },
+        { q: "10 + 15 = ?", a: "25" },
+        { q: "18 ÷ 2 = ?", a: "9" },
+        { q: "20 - 5 = ?", a: "15" },
+        { q: "8 + 7 = ?", a: "15" }
     ],
     reading: [
         { q: 'Where did the cat sit in: "The cat sat on the warm windowsill."', a: "window" },
-        { q: 'What is the color of the cat in: "The black cat ran fast."', a: "black" }
+        { q: 'What is the color of the cat in: "The black cat ran fast."', a: "black" },
+        { q: 'What animal is in: "The dog barked loudly."', a: "dog" },
+        { q: 'What object: "The book is on the table."', a: "book" },
+        { q: 'What did the boy eat: "The boy ate an apple."', a: "apple" },
+        { q: 'What color: "The sky is blue."', a: "blue" },
+        { q: 'Who is happy: "Anna is smiling."', a: "anna" },
+        { q: 'What did he drink: "He drank water."', a: "water" },
+        { q: 'What is red: "The apple is red."', a: "apple" },
+        { q: 'Where is the cat: "The cat is under the table."', a: "under" }
     ],
     science: [
         { q: "What do plants need to grow?", a: ["sun","water","light"] },
-        { q: "What gas do humans breathe in?", a: "oxygen" }
+        { q: "What gas do humans breathe in?", a: "oxygen" },
+        { q: "What do humans need to survive?", a: ["food","water"] },
+        { q: "What planet do we live on?", a: "earth" },
+        { q: "What force keeps us on the ground?", a: "gravity" },
+        { q: "What organ pumps blood?", a: "heart" },
+        { q: "What gas do plants produce?", a: "oxygen" },
+        { q: "What do bees collect?", a: "nectar" },
+        { q: "What do fish breathe?", a: "water" },
+        { q: "What causes day and night?", a: "rotation" }
     ]
 };
 
 let currentSubject = "";
 let currentQuestion = 0;
 let score = 0;
-let timerInterval = null;
+let shuffledQuestions = [];
+
+function shuffleArray(arr) {
+    // Fisher-Yates shuffle
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
 
 function showFeedback(message, correct) {
     const feedbackDiv = document.getElementById("feedback");
@@ -34,13 +66,13 @@ function showFeedback(message, correct) {
 function updateScore() {
     const scoreDiv = document.getElementById("score");
     if (scoreDiv) {
-        scoreDiv.textContent = `Score: ${score} / ${questions[currentSubject].length}`;
+        scoreDiv.textContent = `Score: ${score} / ${shuffledQuestions.length}`;
         scoreDiv.classList.add("update");
         setTimeout(() => scoreDiv.classList.remove("update"), 300);
     }
 }
 
-// Load home page
+// Load home
 window.onload = loadHome;
 
 function loadHome() {
@@ -62,20 +94,21 @@ function startTest(subject) {
     currentQuestion = 0;
     score = 0;
 
+    shuffledQuestions = shuffleArray([...questions[subject]]); // shuffle each time
+
     if (!document.getElementById("score")) {
         const scoreDiv = document.createElement("div");
         scoreDiv.id = "score";
-        scoreDiv.textContent = `Score: 0 / ${questions[subject].length}`;
+        scoreDiv.textContent = `Score: 0 / ${shuffledQuestions.length}`;
         document.body.appendChild(scoreDiv);
     }
+
     showQuestion();
 }
 
 // Show question
 function showQuestion() {
-    if (timerInterval) clearInterval(timerInterval);
-    const q = questions[currentSubject][currentQuestion];
-
+    const q = shuffledQuestions[currentQuestion];
     document.getElementById("content").innerHTML = `
         <div id="feedback"></div>
         <div class="lesson-box">
@@ -90,7 +123,7 @@ function showQuestion() {
 
 // Check answer
 function checkAnswer() {
-    const q = questions[currentSubject][currentQuestion];
+    const q = shuffledQuestions[currentQuestion];
     const ans = document.getElementById("answerInput").value.toLowerCase();
     let correct = false;
 
@@ -110,7 +143,7 @@ function checkAnswer() {
     updateScore();
 
     currentQuestion++;
-    if (currentQuestion < questions[currentSubject].length) {
+    if (currentQuestion < shuffledQuestions.length) {
         setTimeout(showQuestion, 1800);
     } else {
         setTimeout(showResult, 1800);
@@ -119,14 +152,14 @@ function checkAnswer() {
 
 // Show final result
 function showResult() {
-    const percentage = Math.round((score / questions[currentSubject].length) * 100);
+    const percentage = Math.round((score / shuffledQuestions.length) * 100);
     let msg = percentage === 100 ? "🎉 You passed!" : (percentage <= 50 ? "❌ You failed!" : "👍 Good try!");
 
     document.getElementById("content").innerHTML = `
         <div id="feedback"></div>
         <div class="lesson-box">
             <h2>${currentSubject.toUpperCase()} Test Completed</h2>
-            <p>Your Score: ${score} / ${questions[currentSubject].length} (${percentage}%)</p>
+            <p>Your Score: ${score} / ${shuffledQuestions.length} (${percentage}%)</p>
             <h3>${msg}</h3>
             <button onclick="loadHome()">Back to Home</button>
         </div>
