@@ -2,20 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LearnLab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LearnLab Pro</title>
 <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
 <header>
     <h1 class="logo">LearnLab</h1>
     <nav class="nav">
         <a onclick="loadHome()">Home</a>
-        <select id="gradeDropdown" onchange="selectGrade()">
+        <a onclick="loadProfile()">Profile</a>
+        <select id="gradeSelect" onchange="changeGrade()">
             <option value="">Select Grade</option>
             <option value="JK">JK</option>
-            <option value="K">K</option>
+            <option value="K">Kindergarten</option>
             <option value="1">Grade 1</option>
             <option value="2">Grade 2</option>
             <option value="3">Grade 3</option>
@@ -34,7 +35,7 @@
 
 <main id="content"></main>
 
-<div id="feedback" class="feedback-box"></div>
+<div id="feedback" class="feedback"></div>
 
 <script src="script.js"></script>
 </body>
