@@ -1,10 +1,11 @@
-function showFeedback(// Example: Math questions
+// Example: Math questions
 const mathQuestions = [
     { question: "7 + 6 = ?", answer: 13 },
     { question: "5 x 3 = ?", answer: 15 },
     { question: "12 - 4 = ?", answer: 8 }
 ];
 
+// Function to show feedback messages
 function showFeedback(message, correct) {
     const feedbackDiv = document.getElementById("feedback");
     feedbackDiv.textContent = message;
@@ -29,16 +30,13 @@ function showFeedback(message, correct) {
         feedbackDiv.style.opacity = "0";
     }, 2000);
 }
-);
-}
-
 
 // Load homepage at start
 window.onload = function() {
     loadHome();
 };
 
-// HOME PAGE
+// ---------------------- HOME PAGE ----------------------
 function loadHome() {
     document.getElementById("content").innerHTML = `
         <h2 style="text-align:center; margin-top:35px;">Choose a Subject</h2>
@@ -62,10 +60,9 @@ function loadHome() {
     `;
 }
 
-// ---------------------- MATH SECTION ----------------------
+// ---------------------- MATH ----------------------
 function loadMath() {
     document.getElementById("content").innerHTML = `<div id="feedback"></div>
-
         <div class="lesson-box">
             <h2>Math Practice</h2>
             <p>Solve: <b>7 + 6 = ?</b></p>
@@ -81,18 +78,16 @@ function checkMath() {
     const positiveResponses = ["Brilliant! 🎉", "Correct! ✅", "Great! 🌟", "Perfect! ✨"];
     
     if (ans == 13) {
-        // Pick a random positive message
         const msg = positiveResponses[Math.floor(Math.random() * positiveResponses.length)];
-        showFeedback(msg, true); // green text
+        showFeedback(msg, true);
     } else {
-        showFeedback("Try again!", false); // red text
+        showFeedback("Try again!", false);
     }
 }
 
-// ---------------------- READING SECTION ----------------------
+// ---------------------- READING ----------------------
 function loadReading() {
     document.getElementById("content").innerHTML = `<div id="feedback"></div>
-
         <div class="lesson-box">
             <h2>Reading Practice</h2>
             <p>Read this sentence:</p>
@@ -117,10 +112,9 @@ function checkReading() {
     }
 }
 
-// ---------------------- SCIENCE SECTION ----------------------
+// ---------------------- SCIENCE ----------------------
 function loadScience() {
     document.getElementById("content").innerHTML = `<div id="feedback"></div>
-
         <div class="lesson-box">
             <h2>Science Practice</h2>
             <p>What do plants need to grow?</p>
@@ -139,6 +133,10 @@ function checkScience() {
         const msg = positiveResponses[Math.floor(Math.random() * positiveResponses.length)];
         showFeedback(msg, true);
     } else {
+        showFeedback("Try again!", false);
+    }
+}
+
         showFeedback("Try again!", false);
     }
 }
