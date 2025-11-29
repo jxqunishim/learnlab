@@ -58,10 +58,14 @@ function loadMath() {
 
 function checkMath() {
     let ans = document.getElementById("mathInput").value;
+    const positiveResponses = ["Brilliant! 🎉", "Correct! ✅", "Great! 🌟", "Perfect! ✨"];
+    
     if (ans == 13) {
-        alert("Correct! 🎉");
+        // Pick a random positive message
+        const msg = positiveResponses[Math.floor(Math.random() * positiveResponses.length)];
+        showFeedback(msg, true); // green text
     } else {
-        alert("Try again!");
+        showFeedback("Try again!", false); // red text
     }
 }
 
@@ -83,10 +87,13 @@ function loadReading() {
 
 function checkReading() {
     let ans = document.getElementById("readingInput").value.toLowerCase();
+    const positiveResponses = ["Brilliant! 🎉", "Correct! ✅", "Great! 🌟", "Perfect! ✨"];
+    
     if (ans.includes("window")) {
-        alert("Correct! 🎉");
+        const msg = positiveResponses[Math.floor(Math.random() * positiveResponses.length)];
+        showFeedback(msg, true);
     } else {
-        alert("Try again!");
+        showFeedback("Try again!", false);
     }
 }
 
@@ -106,9 +113,12 @@ function loadScience() {
 
 function checkScience() {
     let ans = document.getElementById("scienceInput").value.toLowerCase();
+    const positiveResponses = ["Brilliant! 🎉", "Correct! ✅", "Great! 🌟", "Perfect! ✨"];
+    
     if (ans.includes("sun") || ans.includes("water") || ans.includes("light")) {
-        alert("Correct! 🎉");
+        const msg = positiveResponses[Math.floor(Math.random() * positiveResponses.length)];
+        showFeedback(msg, true);
     } else {
-        alert("Try again!");
+        showFeedback("Try again!", false);
     }
 }
