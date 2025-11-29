@@ -1,11 +1,9 @@
-/* GENERAL */
 body {
     margin: 0;
     font-family: "Poppins", Arial, sans-serif;
     background: #f4f6fa;
 }
 
-/* HEADER */
 header {
     background: #4e73df;
     color: white;
@@ -33,7 +31,6 @@ header {
     text-decoration: underline;
 }
 
-/* HOME CARDS */
 .subject-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -55,7 +52,6 @@ header {
     transform: translateY(-5px);
 }
 
-/* LESSON AREA */
 .lesson-box {
     background: white;
     width: 70%;
@@ -80,17 +76,11 @@ button:hover {
     background: #17a673;
 }
 
-/* FEEDBACK ANIMATION */
 @keyframes pop {
   0%   { transform: scale(0.5); opacity: 0; }
   50%  { transform: scale(1.2); opacity: 1; }
   100% { transform: scale(1); opacity: 1; }
 }
-
-#feedback.pop {
-  animation: pop 0.5s ease forwards;
-}
-
 
 #feedback.pop {
   animation: pop 0.5s ease forwards;
