@@ -29,7 +29,8 @@ function loadHome() {
 
 // ---------------------- MATH SECTION ----------------------
 function loadMath() {
-    document.getElementById("content").innerHTML = `
+    document.getElementById("content").innerHTML = `<div id="feedback"></div>
+
         <div class="lesson-box">
             <h2>Math Practice</h2>
             <p>Solve: <b>7 + 6 = ?</b></p>
@@ -51,7 +52,8 @@ function checkMath() {
 
 // ---------------------- READING SECTION ----------------------
 function loadReading() {
-    document.getElementById("content").innerHTML = `
+    document.getElementById("content").innerHTML = `<div id="feedback"></div>
+
         <div class="lesson-box">
             <h2>Reading Practice</h2>
             <p>Read this sentence:</p>
@@ -75,7 +77,8 @@ function checkReading() {
 
 // ---------------------- SCIENCE SECTION ----------------------
 function loadScience() {
-    document.getElementById("content").innerHTML = `
+    document.getElementById("content").innerHTML = `<div id="feedback"></div>
+
         <div class="lesson-box">
             <h2>Science Practice</h2>
             <p>What do plants need to grow?</p>
