@@ -4,13 +4,13 @@
 body {
     margin: 0;
     font-family: "Poppins", Arial, sans-serif;
-    background: #0f1923;
+    background: #0a1d3f; /* Dark blue background */
     color: #e0f7ff;
 }
 
 /* Header */
 header {
-    background: #061826;
+    background: #1e90ff; /* Light blue top banner */
     color: white;
     display: flex;
     justify-content: space-between;
@@ -29,7 +29,8 @@ header {
     cursor: pointer;
     font-size: 16px;
     text-decoration: none;
-    color: #00d4ff;
+    color: #061826;
+    font-weight: bold;
 }
 
 .nav a:hover {
