@@ -1,16 +1,108 @@
+/* GLOBAL THEME */
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: #1a1425;
+    color: white;
+}
 
-/* Move scoreboard down so it doesn’t cover nav */
-#score {
-    position: fixed;
-    top: 80px; /* lower it from top */
-    right: 30px;
-    background: #fff;
-    padding: 20px 30px;
-    font-size: 24px;
+/* HEADER */
+header {
+    background: #2a1d3a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+.logo {
+    font-size: 30px;
     font-weight: bold;
+    color: #3b82f6;
+}
+
+.nav a {
+    margin-left: 25px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.nav a:hover {
+    color: #3b82f6;
+}
+
+#gradeSelect {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+}
+
+/* SCORE BOX */
+#scoreBox {
+    font-size: 18px;
+    background: #3b82f6;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    color: white;
+}
+
+/* CONTENT */
+.lesson-box {
+    background: #251b33;
+    width: 70%;
+    margin: 40px auto;
+    padding: 35px;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    text-align: center;
+}
+
+input {
+    padding: 12px;
+    width: 60%;
+    margin-top: 10px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: none;
+}
+
+button {
+    background: #3b82f6;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-size: 18px;
+    cursor: pointer;
+    color: white;
+}
+
+button:hover {
+    background: #2563eb;
+}
+
+/* FEEDBACK BOX */
+#feedbackBox {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #3b82f6;
+    color: white;
+    padding: 25px 35px;
     border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    color: #333;
-    z-index: 100;
-    transition: transform 0.3s ease;
+    font-size: 28px;
+    font-weight: bold;
+    display: none;
+    box-shadow: 0 0 20px #3b82f6;
+    animation: pop 0.4s ease;
+}
+
+@keyframes pop {
+    0% { transform: scale(0.5) translate(-50%, -50%); opacity: 0; }
+    100% { transform: scale(1) translate(-50%, -50%); opacity: 1; }
 }
