@@ -1,46 +1,65 @@
-const grades = ["JK","SK","Grade 1","Grade 2"];
+// --- VARIABLES ---
+const grades = ["JK","SK","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6","Grade 7","Grade 8","Grade 9","Grade 10","Grade 11","Grade 12"];
 let currentGrade = "JK";
 let currentSubject = "";
 let currentQuestion = 0;
 let score = 0;
 let shuffledQuestions = [];
 
-// Sample questions per grade & subject (you can expand later)
+// --- SAMPLE QUESTIONS BANK (expandable, 10-30 per subject/grade) ---
 const questionsBank = {
-    "JK": {
-        Math: [{q:"1+1=?", a:"2"},{q:"2+3=?", a:"5"},{q:"5-2=?", a:"3"}],
-        Reading: [{q:"Which is cat or dog?", a:"cat"},{q:"Which is sun or moon?", a:"sun"},{q:"Which is apple or banana?", a:"apple"}],
-        Science: [{q:"Which is hot: Sun or Moon?", a:"sun"},{q:"Fish live in water or land?", a:"water"},{q:"Apple grows on tree or stone?", a:"apple"}]
+    "Math": {
+        "JK": [
+            {q:"1 + 1 = ?", a:"2"},{q:"2 + 2 = ?", a:"4"},{q:"3 - 1 = ?", a:"2"},
+            {q:"5 - 2 = ?", a:"3"},{q:"2 + 3 = ?", a:"5"},{q:"4 - 3 = ?", a:"1"},
+            {q:"1 + 0 = ?", a:"1"},{q:"0 + 2 = ?", a:"2"},{q:"3 + 0 = ?", a:"3"},
+            {q:"5 - 0 = ?", a:"5"}
+        ],
+        "Grade 1": [
+            {q:"5 + 7 = ?", a:"12"},{q:"9 - 4 = ?", a:"5"},{q:"3 + 8 = ?", a:"11"},
+            {q:"10 - 2 = ?", a:"8"},{q:"6 + 5 = ?", a:"11"},{q:"7 - 3 = ?", a:"4"},
+            {q:"4 + 4 = ?", a:"8"},{q:"8 - 5 = ?", a:"3"},{q:"2 + 6 = ?", a:"8"},{q:"9 - 1 = ?", a:"8"}
+        ]
     },
-    "SK": {
-        Math: [{q:"3+2=?", a:"5"},{q:"4-1=?", a:"3"},{q:"2+5=?", a:"7"}],
-        Reading: [{q:"Book or pen?", a:"book"},{q:"Dog or cat?", a:"dog"},{q:"Tree or flower?", a:"tree"}],
-        Science: [{q:"Planet: Earth or Sun?", a:"earth"},{q:"Plants need Sun or Rock?", a:"sun"},{q:"Fish or Dog?", a:"fish"}]
+    "Reading": {
+        "JK": [
+            {q:"Which is a cat or a dog?", a:"cat"},{q:"Which is sun or moon?", a:"sun"},{q:"Which is apple or banana?", a:"apple"},
+            {q:"Which is red or blue?", a:"red"},{q:"Which is car or tree?", a:"car"},{q:"Which is ball or book?", a:"ball"},
+            {q:"Which is dog or cat?", a:"dog"},{q:"Which is moon or sun?", a:"moon"},{q:"Which is banana or apple?", a:"banana"},{q:"Which is tree or rock?", a:"tree"}
+        ],
+        "Grade 1": [
+            {q:"Fruit: Apple or Chair?", a:"apple"},{q:"Animal: Cat or Book?", a:"cat"},{q:"Rhymes with 'hat': Cat or Dog?", a:"cat"},
+            {q:"Which flies: Bird or Rock?", a:"bird"},{q:"Which is liquid: Water or Stone?", a:"water"},{q:"Grows from seeds: Plant or Stone?", a:"plant"},
+            {q:"Which is sweet: Candy or Rock?", a:"candy"},{q:"Which is large: Elephant or Mouse?", a:"elephant"},{q:"Which is fast: Cheetah or Turtle?", a:"cheetah"},{q:"Which is hot: Sun or Moon?", a:"sun"}
+        ]
     },
-    "Grade 1": {
-        Math: [{q:"5+7=?", a:"12"},{q:"9-4=?", a:"5"},{q:"3+8=?", a:"11"}],
-        Reading: [{q:"Fruit: Apple or Chair?", a:"apple"},{q:"Animal: Cat or Book?", a:"cat"},{q:"Rhymes with 'hat': Cat or Dog?", a:"cat"}],
-        Science: [{q:"Can fly: Bird or Elephant?", a:"bird"},{q:"Liquid: Water or Rock?", a:"water"},{q:"Grows from seeds: Plant or Stone?", a:"plant"}]
-    },
-    "Grade 2": {
-        Math: [{q:"12+8=?", a:"20"},{q:"15-6=?", a:"9"},{q:"7+5=?", a:"12"}],
-        Reading: [{q:"Verb: Run or Table?", a:"run"},{q:"Noun: Apple or Jump?", a:"apple"},{q:"Rhymes with 'sun': Fun or Dog?", a:"fun"}],
-        Science: [{q:"Closest planet to Sun?", a:"mercury"},{q:"Gas we breathe in?", a:"oxygen"},{q:"Mammal: Whale or Lizard?", a:"whale"}]
+    "Science": {
+        "JK": [
+            {q:"Which is hot: Sun or Moon?", a:"sun"},{q:"Fish live in water or land?", a:"water"},{q:"Apple grows on tree or stone?", a:"apple"},
+            {q:"Which moves: Car or House?", a:"car"},{q:"Which is round: Ball or Cube?", a:"ball"},{q:"Which flies: Bird or Fish?", a:"bird"},
+            {q:"Which is day: Sun or Moon?", a:"sun"},{q:"Which we drink: Water or Sand?", a:"water"},{q:"Which is alive: Dog or Rock?", a:"dog"},{q:"Which grows: Plant or Stone?", a:"plant"}
+        ],
+        "Grade 1": [
+            {q:"Can fly: Bird or Elephant?", a:"bird"},{q:"Liquid: Water or Rock?", a:"water"},{q:"Grows from seeds: Plant or Stone?", a:"plant"},
+            {q:"Closest planet to Sun?", a:"mercury"},{q:"Gas we breathe in?", a:"oxygen"},{q:"Mammal: Whale or Lizard?", a:"whale"},
+            {q:"What do plants need?", a:"sun"},{q:"What do fish live in?", a:"water"},{q:"Which is hot: Sun or Moon?", a:"sun"},{q:"Which makes milk: Cow or Dog?", a:"cow"}
+        ]
     }
 };
 
-function shuffleArray(arr) {
-    for (let i = arr.length-1; i>0; i--) {
-        const j = Math.floor(Math.random()*(i+1));
+// --- FUNCTIONS ---
+function shuffleArray(arr){
+    for(let i=arr.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
         [arr[i],arr[j]]=[arr[j],arr[i]];
     }
     return arr;
 }
 
 function showFeedback(message, correct){
-    const feedbackDiv = document.getElementById("feedback");
-    feedbackDiv.textContent = message;
-    feedbackDiv.style.backgroundColor = correct ? "#1cc88a" : "#e74a3b";
+    const feedbackDiv=document.getElementById("feedback");
+    feedbackDiv.textContent=message;
+    feedbackDiv.style.backgroundColor=correct?"#10b981":"#ef4444";
     feedbackDiv.classList.remove("pop");
     void feedbackDiv.offsetWidth;
     feedbackDiv.classList.add("pop");
@@ -49,14 +68,14 @@ function showFeedback(message, correct){
 }
 
 function updateScore(){
-    const scoreDiv = document.getElementById("score");
-    if(scoreDiv) scoreDiv.textContent = `Score: ${score} / ${shuffledQuestions.length}`;
+    const scoreDiv=document.getElementById("score");
+    if(scoreDiv) scoreDiv.textContent=`Score: ${score} / ${shuffledQuestions.length}`;
 }
 
 function loadHome(){
-    currentGrade = "JK"; currentSubject=""; currentQuestion=0; score=0;
+    currentGrade="JK"; currentSubject=""; currentQuestion=0; score=0;
 
-    document.getElementById("content").innerHTML = `
+    document.getElementById("content").innerHTML=`
         <div style="text-align:center; margin: 20px 0;">
             <label for="gradeSelect" style="font-size:20px; font-weight:bold;">Select Grade Level: </label>
             <select id="gradeSelect">
@@ -71,32 +90,32 @@ function loadHome(){
     `;
 
     document.getElementById("gradeSelect").addEventListener("change", function(){
-        currentGrade = this.value;
+        currentGrade=this.value;
     });
 
-    const scoreDiv = document.getElementById("score");
+    const scoreDiv=document.getElementById("score");
     if(scoreDiv) scoreDiv.remove();
 }
 
 function chooseSubject(subject){
-    currentSubject = subject;
+    currentSubject=subject;
     startTest();
 }
 
 function startTest(){
-    currentQuestion = 0; score=0;
-    shuffledQuestions = shuffleArray([...questionsBank[currentGrade][currentSubject]]);
+    currentQuestion=0; score=0;
+    shuffledQuestions=shuffleArray([...questionsBank[currentSubject][currentGrade]]);
     if(!document.getElementById("score")){
-        const scoreDiv = document.createElement("div"); scoreDiv.id="score";
-        scoreDiv.textContent = `Score: 0 / ${shuffledQuestions.length}`;
+        const scoreDiv=document.createElement("div"); scoreDiv.id="score";
+        scoreDiv.textContent=`Score: 0 / ${shuffledQuestions.length}`;
         document.body.appendChild(scoreDiv);
     }
     showQuestion();
 }
 
 function showQuestion(){
-    const q = shuffledQuestions[currentQuestion];
-    document.getElementById("content").innerHTML = `
+    const q=shuffledQuestions[currentQuestion];
+    document.getElementById("content").innerHTML=`
         <div id="feedback"></div>
         <div class="lesson-box">
             <h2>${currentSubject} Question ${currentQuestion+1}</h2>
@@ -109,21 +128,21 @@ function showQuestion(){
 }
 
 function checkAnswer(){
-    const q = shuffledQuestions[currentQuestion];
-    const ans = document.getElementById("answerInput").value.toLowerCase();
-    const correct = ans.includes(q.a.toLowerCase());
+    const q=shuffledQuestions[currentQuestion];
+    const ans=document.getElementById("answerInput").value.toLowerCase();
+    const correct=ans.includes(q.a.toLowerCase());
     if(correct){score++; showFeedback("Correct! ✅", true);}
-    else{showFeedback("Try again! ❌", false);}
+    else{showFeedback(`Incorrect! ❌ (Answer: ${q.a})`, false);}
     updateScore();
     currentQuestion++;
-    if(currentQuestion < shuffledQuestions.length) setTimeout(showQuestion, 1800);
-    else setTimeout(showResult, 1800);
+    if(currentQuestion<shuffledQuestions.length) setTimeout(showQuestion,1800);
+    else setTimeout(showResult,1800);
 }
 
 function showResult(){
-    const percentage = Math.round((score/shuffledQuestions.length)*100);
-    const msg = percentage>=50 ? "🎉 You passed!" : "❌ You failed!";
-    document.getElementById("content").innerHTML = `
+    const percentage=Math.round((score/shuffledQuestions.length)*100);
+    const msg=percentage>=50?"🎉 You passed!":"❌ You failed!";
+    document.getElementById("content").innerHTML=`
         <div id="feedback"></div>
         <div class="lesson-box">
             <h2>${currentSubject} Test Completed</h2>
@@ -134,4 +153,4 @@ function showResult(){
     `;
 }
 
-window.onload = loadHome;
+window.onload=loadHome;
