@@ -1,7 +1,101 @@
-/* Move scoreboard down so it doesn’t cover nav */
+body {
+    margin: 0;
+    font-family: "Poppins", Arial, sans-serif;
+    background: #f4f6fa;
+}
+
+/* HEADER */
+header {
+    background: #4e73df;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 30px;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.nav a {
+    margin-left: 25px;
+    cursor: pointer;
+    font-size: 18px;
+    text-decoration: none;
+    color: white;
+}
+
+.nav a:hover {
+    text-decoration: underline;
+}
+
+/* SUBJECT GRID */
+.subject-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    padding: 40px;
+}
+
+.subject-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.subject-card:hover {
+    transform: translateY(-5px);
+}
+
+/* LESSON BOX */
+.lesson-box {
+    background: white;
+    width: 70%;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* FEEDBACK */
+#feedback {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #1cc88a;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 40px 60px;
+    border-radius: 20px;
+    text-align: center;
+    opacity: 0;
+    z-index: 1000;
+}
+
+#feedback.pop {
+    animation: pop 0.5s ease forwards;
+}
+
+@keyframes pop {
+    0%   { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+    50%  { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+/* SCOREBOARD */
 #score {
     position: fixed;
-    top: 80px; /* lower it from top */
+    top: 80px;
     right: 30px;
     background: #fff;
     padding: 20px 30px;
@@ -11,5 +105,11 @@
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     color: #333;
     z-index: 100;
-    transition: transform 0.3s ease;
+}
+
+/* GRADE SELECT */
+#gradeSelect {
+    font-size: 18px;
+    padding: 5px 10px;
+    margin-top: 10px;
 }
