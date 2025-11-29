@@ -86,22 +86,24 @@ button:hover {
     background: #17a673;
 }
 
-/* FEEDBACK POPUP */
+/* BIG FEEDBACK POPUP */
 #feedback {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 40px 60px;
-    border-radius: 15px;
-    font-size: 32px;
+    width: 450px;
+    max-width: 90%;
+    padding: 50px 30px;
+    border-radius: 20px;
+    font-size: 36px;
     font-weight: bold;
     color: white;
     text-align: center;
     z-index: 1000;
     opacity: 0;
     pointer-events: none;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
 
 #feedback.pop {
@@ -114,16 +116,21 @@ button:hover {
     100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 }
 
-/* Score tracker */
+/* SCOREBOARD */
 #score {
     position: fixed;
     top: 20px;
     right: 30px;
     background: #fff;
-    padding: 15px 25px;
-    font-size: 22px;
+    padding: 20px 30px;
+    font-size: 24px;
     font-weight: bold;
-    border-radius: 12px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     color: #333;
+    z-index: 100;
+    transition: transform 0.3s ease;
+}
+#score.update {
+    transform: scale(1.2);
 }
