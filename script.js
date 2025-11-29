@@ -1,21 +1,31 @@
 function showFeedback(message, correct=true) {
     const feedbackDiv = document.getElementById("feedback");
     feedbackDiv.textContent = message;
-    feedbackDiv.style.color = correct ? "#1cc88a" : "#e74a3b"; // green or red
     feedbackDiv.style.fontWeight = "bold";
     feedbackDiv.style.fontSize = "18px";
     feedbackDiv.style.marginTop = "15px";
 
-    // Trigger pop animation
-    feedbackDiv.classList.remove("pop"); // reset animation
+    // Different colors for different positive messages
+    if (correct) {
+        if (message.includes("Brilliant")) feedbackDiv.style.color = "#f1c40f"; // gold
+        else if (message.includes("Perfect")) feedbackDiv.style.color = "#3498db"; // blue
+        else if (message.includes("Great")) feedbackDiv.style.color = "#2ecc71"; // green
+        else feedbackDiv.style.color = "#1cc88a"; // default green
+    } else {
+        feedbackDiv.style.color = "#e74a3b"; // red for wrong
+    }
+
+    // Pop animation
+    feedbackDiv.classList.remove("pop"); 
     void feedbackDiv.offsetWidth; // force reflow
     feedbackDiv.classList.add("pop");
 
-    // Optional: fade out after 2 seconds
+    // Optional fade out after 2 seconds
     setTimeout(() => {
         feedbackDiv.style.opacity = "0";
     }, 2000);
 }
+
 
 // Load homepage at start
 window.onload = function() {
