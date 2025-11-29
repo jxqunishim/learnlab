@@ -1,143 +1,120 @@
-/* =========================
-   Global Styles
-========================= */
-body {
+/* Basic Reset */
+* {
     margin: 0;
-    font-family: "Poppins", Arial, sans-serif;
-    background: #0a1d3f; /* Dark blue background */
-    color: #e0f7ff;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', Arial, sans-serif;
+}
+
+/* Body & Background */
+body {
+    background-color: #0b1e3a; /* Dark Blue */
+    color: #f0f8ff; /* Light text */
+    min-height: 100vh;
 }
 
 /* Header */
 header {
-    background: #1e90ff; /* Light blue top banner */
+    background-color: #1a4f9c; /* Light Blue Header */
     color: white;
+    padding: 15px 30px;
     display: flex;
     justify-content: space-between;
-    padding: 15px 30px;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
 }
 
-.logo {
+header .logo {
     font-size: 28px;
     font-weight: bold;
 }
 
-.nav a, .nav select {
-    margin-left: 15px;
+nav button {
+    background: #3174d6;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    margin-left: 10px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 16px;
-    text-decoration: none;
-    color: #061826;
-    font-weight: bold;
+    transition: 0.3s;
 }
 
-.nav a:hover {
-    text-decoration: underline;
-}
-
-/* Feedback Popup */
-.feedback {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #061826;
-    color: #00d4ff;
-    padding: 25px 40px;
-    font-size: 22px;
-    font-weight: bold;
-    border-radius: 15px;
-    box-shadow: 0 0 25px rgba(0,212,255,0.7);
-    display: none;
-    text-align: center;
-    z-index: 1000;
-    transition: all 0.3s ease;
+nav button:hover {
+    background: #1d5bbf;
 }
 
 /* Cards */
 .card {
-    background: #0b1c2c;
-    border-radius: 15px;
+    background-color: #13294b; /* Slightly lighter than background */
+    margin: 30px auto;
     padding: 25px;
-    margin: 20px auto;
+    border-radius: 12px;
+    width: 90%;
     max-width: 700px;
-    box-shadow: 0 5px 20px rgba(0,212,255,0.3);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transition: all 0.3s;
 }
 
-/* Quiz Input */
-input[type="text"], input[type="number"] {
-    padding: 10px;
-    width: 80%;
-    border-radius: 10px;
-    border: none;
-    margin-top: 10px;
-    font-size: 16px;
+.card:hover {
+    transform: translateY(-3px);
 }
 
-/* Buttons */
-button {
-    background: #00d4ff;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 10px;
-    color: #061826;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 15px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-}
-
-button:hover {
-    background: #00a3cc;
-    color: #fff;
-}
-
-/* Profile Section */
-.profile-pic {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 3px solid #00d4ff;
-    margin-bottom: 15px;
-}
-
-.avatar-options img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin: 5px;
-    border: 2px solid #0b1c2c;
-    cursor: pointer;
-}
-
-.avatar-options img.selected {
-    border: 3px solid #00d4ff;
-}
-
-.achievements .badge {
-    background: #00d4ff;
-    color: #061826;
-    padding: 5px 12px;
-    margin: 3px;
-    border-radius: 8px;
-    display: inline-block;
-}
-
-/* Progress Bar */
-.progress-container {
-    width: 100%;
-    background: #061826;
-    border-radius: 10px;
+/* Selectors */
+.selectors {
+    display: flex;
+    justify-content: space-between;
     margin-top: 20px;
 }
 
-.progress-bar {
-    height: 20px;
-    background: #00d4ff;
-    border-radius: 10px;
-    width: 0%;
-    transition: width 0.3s ease;
+.selectors select {
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+}
+
+/* Feedback */
+#feedback {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffd700;
+}
+
+/* Input & Button */
+input[type=text] {
+    width: 80%;
+    padding: 8px 10px;
+    margin-top: 15px;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: none;
+    background-color: #3174d6;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #1d5bbf;
+}
+
+/* Avatar Buttons */
+.avatar-select button {
+    font-size: 22px;
+    margin: 5px;
+    background: #0b2e5a;
+}
+
+.avatar-select button:hover {
+    background: #14497c;
 }
