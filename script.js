@@ -1,175 +1,213 @@
-// ============================
+// =========================
 // Global Variables
-// ============================
+// =========================
 let currentGrade = "";
 let currentQuestions = [];
-let currentIndex = 0;
+let currentQuestionIndex = 0;
 let score = 0;
 let totalQuestions = 0;
 let userProfile = {
     name: "Guest",
-    avatar: "cat",
+    avatar: "avatar1",
     achievements: []
 };
+const avatars = ["avatar1", "avatar2", "avatar3", "avatar4"]; // example images
 
-// Available avatars
-const avatars = {
-    cat: "https://i.pravatar.cc/100?img=5",
-    dog: "https://i.pravatar.cc/100?img=12",
-    snake: "https://i.pravatar.cc/100?img=15",
-    rabbit: "https://i.pravatar.cc/100?img=20",
-    fox: "https://i.pravatar.cc/100?img=25"
+// =========================
+// Questions Database
+// =========================
+const questionsDB = {
+    JK: [
+        { q: "What color is the sky?", a: "blue" },
+        { q: "How many fingers do you have?", a: "10" },
+        { q: "What sound does a cat make?", a: "meow" },
+        { q: "What shape is a ball?", a: "circle" },
+        { q: "What do you eat for breakfast?", a: "cereal" },
+        { q: "How many eyes do you have?", a: "2" },
+        { q: "Name a fruit that is red.", a: "apple" },
+        { q: "What do cows say?", a: "moo" },
+        { q: "What do you wear on your feet?", a: "shoes" },
+        { q: "What do you use to write?", a: "pencil" }
+    ],
+    K: [
+        { q: "What color is grass?", a: "green" },
+        { q: "How many legs does a dog have?", a: "4" },
+        { q: "What shape is a square?", a: "square" },
+        { q: "Name a fruit that is yellow.", a: "banana" },
+        { q: "How many days are in a week?", a: "7" },
+        { q: "What do bees make?", a: "honey" },
+        { q: "What sound does a duck make?", a: "quack" },
+        { q: "What do you wear on your head?", a: "hat" },
+        { q: "What do you drink?", a: "water" },
+        { q: "What do you use to cut paper?", a: "scissors" }
+    ],
+    1: generateQuestions(1, 10),
+    2: generateQuestions(2, 10),
+    3: generateQuestions(3, 10),
+    4: generateQuestions(4, 10),
+    5: generateQuestions(5, 20),
+    6: generateQuestions(6, 20),
+    7: generateQuestions(7, 20),
+    8: generateQuestions(8, 20),
+    9: generateQuestions(9, 30),
+    10: generateQuestions(10, 30),
+    11: generateQuestions(11, 30),
+    12: generateQuestions(12, 30)
 };
 
-// Question bank
-const questionBank = {
-    "JK": [/* 10 questions */],
-    "K": [/* 10 questions */],
-    "1": [/* 10 questions */],
-    "2": [/* 10 questions */],
-    "3": [/* 10 questions */],
-    "4": [/* 10 questions */],
-    "5": [/* 20 questions */],
-    "6": [/* 20 questions */],
-    "7": [/* 20 questions */],
-    "8": [/* 20 questions */],
-    "9": [/* 30 questions */],
-    "10": [/* 30 questions */],
-    "11": [/* 30 questions */],
-    "12": [/* 30 questions */]
-};
-
-// Shuffle array
-function shuffle(array) {
-    return array.sort(() => Math.random() - 0.5);
+// Example function to generate placeholder questions
+function generateQuestions(grade, count) {
+    const arr = [];
+    for (let i = 1; i <= count; i++) {
+        arr.push({
+            q: `Grade ${grade} Question ${i}: What is ${i} + ${i}?`,
+            a: `${i + i}`
+        });
+    }
+    return arr;
 }
 
-// Show feedback popup
-function showFeedback(message) {
-    const fb = document.getElementById("feedback");
-    fb.textContent = message;
-    fb.style.display = "block";
-    fb.classList.remove("pop");
-    void fb.offsetWidth;
-    fb.classList.add("pop");
-    setTimeout(() => { fb.style.display = "none"; }, 1500);
+// =========================
+// Feedback Popup
+// =========================
+function showFeedback(message, correct) {
+    const feedbackDiv = document.getElementById("feedback");
+    feedbackDiv.textContent = message;
+    feedbackDiv.style.display = "block";
+    feedbackDiv.style.color = correct ? "#00ffea" : "#ff4d4d";
+    feedbackDiv.classList.remove("pop");
+    void feedbackDiv.offsetWidth;
+    feedbackDiv.classList.add("pop");
+    setTimeout(() => {
+        feedbackDiv.style.display = "none";
+    }, 2000);
 }
 
-// ============================
-// Navigation & Profile
-// ============================
+// =========================
+// Load Home
+// =========================
 function loadHome() {
-    const main = document.getElementById("content");
-    main.innerHTML = `
+    document.getElementById("content").innerHTML = `
         <div class="card">
-            <h2>Welcome to LearnLab Pro!</h2>
-            <p>Select a grade from the top dropdown to start your quiz.</p>
-            <p>Click Profile to view your achievements and avatar.</p>
+            <h2>Welcome to LearnLab!</h2>
+            <p>Select your grade from the dropdown above to start a quiz.</p>
         </div>
     `;
 }
 
+// =========================
+// Load Profile
+// =========================
 function loadProfile() {
-    const main = document.getElementById("content");
-    const avatarOptions = Object.keys(avatars).map(a => 
-        `<img src="${avatars[a]}" class="avatar-option ${userProfile.avatar===a?'selected':''}" onclick="changeAvatar('${a}')">`
-    ).join("");
+    let avatarHTML = avatars.map(av => 
+        `<img src="avatars/${av}.png" onclick="selectAvatar('${av}')" class="${userProfile.avatar === av ? 'selected' : ''}">`
+    ).join('');
 
-    main.innerHTML = `
-        <div class="profile">
+    let achievementsHTML = userProfile.achievements.map(a => `<span class="badge">${a}</span>`).join('');
+
+    document.getElementById("content").innerHTML = `
+        <div class="profile card">
+            <img src="avatars/${userProfile.avatar}.png" class="profile-pic">
             <h2>${userProfile.name}</h2>
-            <img src="${avatars[userProfile.avatar]}" class="profile-pic">
-            <div class="avatar-options">${avatarOptions}</div>
+            <div class="avatar-options">${avatarHTML}</div>
             <h3>Achievements</h3>
-            <div class="achievements">
-                ${userProfile.achievements.map(a=>`<span class="badge">${a}</span>`).join('')}
-            </div>
-            <button onclick="loadHome()">Go Home</button>
+            <div class="achievements">${achievementsHTML || 'No achievements yet.'}</div>
         </div>
     `;
 }
 
-function changeAvatar(name){
-    userProfile.avatar = name;
+function selectAvatar(av) {
+    userProfile.avatar = av;
     loadProfile();
 }
 
-// ============================
-// Grade & Quiz Logic
-// ============================
-function changeGrade() {
-    const select = document.getElementById("gradeSelect");
-    currentGrade = select.value;
-    if(!currentGrade) return;
+// =========================
+// Load Quiz by Grade
+// =========================
+function loadQuizByGrade() {
+    const grade = document.getElementById("gradeSelect").value;
+    if (!grade) return;
 
-    let numQuestions = 10;
-    if(["JK","K","1","2","3","4"].includes(currentGrade)) numQuestions = 10;
-    else if(["5","6","7","8"].includes(currentGrade)) numQuestions = 20;
-    else numQuestions = 30;
-
-    currentQuestions = shuffle(questionBank[currentGrade]).slice(0,numQuestions);
-    currentIndex = 0;
-    score = 0;
+    currentGrade = grade;
+    currentQuestions = [...questionsDB[grade]];
+    shuffleArray(currentQuestions);
     totalQuestions = currentQuestions.length;
+    currentQuestionIndex = 0;
+    score = 0;
 
-    loadNextQuestion();
+    showQuestion();
 }
 
-function loadNextQuestion() {
-    if(currentIndex>=currentQuestions.length){
-        const main = document.getElementById("content");
-        const percent = Math.round((score/totalQuestions)*100);
-        main.innerHTML = `
-            <div class="card">
-                <h2>Quiz Complete!</h2>
-                <p>Score: ${score}/${totalQuestions} (${percent}%)</p>
-                <p>${percent>=50?"You Passed! 🎉":"You Failed! 😢"}</p>
-                <button onclick="loadHome()">Go Home</button>
-            </div>
-        `;
-        if(percent>=50) userProfile.achievements.push(`Passed Grade ${currentGrade}`);
+// =========================
+// Shuffle Array
+// =========================
+function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+}
+
+// =========================
+// Show Question
+// =========================
+function showQuestion() {
+    if (currentQuestionIndex >= totalQuestions) {
+        showQuizResult();
         return;
     }
 
-    const question = currentQuestions[currentIndex];
-    const main = document.getElementById("content");
-    main.innerHTML = `
+    const q = currentQuestions[currentQuestionIndex];
+    document.getElementById("content").innerHTML = `
         <div class="card">
-            <h2>Question ${currentIndex+1}/${totalQuestions}</h2>
-            <p>${question.q}</p>
+            <h2>Question ${currentQuestionIndex + 1}/${totalQuestions}</h2>
+            <p>${q.q}</p>
             <input id="answerInput" type="text" placeholder="Your answer">
+            <br>
             <button onclick="submitAnswer()">Submit</button>
-            ${question.hint ? `<button class="hint-btn" onclick="showHint('${question.hint}')">Hint</button>` : ""}
             <div class="progress-container">
-                <div class="progress-bar" id="progressBar" style="width:${(score/totalQuestions)*100}%"></div>
+                <div class="progress-bar" style="width: ${(score/totalQuestions)*100}%"></div>
             </div>
         </div>
     `;
 }
 
+// =========================
+// Submit Answer
+// =========================
 function submitAnswer() {
-    const input = document.getElementById("answerInput");
-    const answer = input.value.trim().toLowerCase();
-    const correctAnswer = currentQuestions[currentIndex].a.toLowerCase();
+    const input = document.getElementById("answerInput").value.trim().toLowerCase();
+    const correctAnswer = currentQuestions[currentQuestionIndex].a.toLowerCase();
 
-    if(answer === correctAnswer){
+    if (input === correctAnswer) {
         score++;
-        showFeedback("Correct! ✅");
+        showFeedback("Correct!", true);
     } else {
-        showFeedback(`Wrong! ❌ Answer: ${currentQuestions[currentIndex].a}`);
+        showFeedback(`Wrong! Correct answer: ${currentQuestions[currentQuestionIndex].a}`, false);
     }
-
-    currentIndex++;
-    loadNextQuestion();
+    currentQuestionIndex++;
+    setTimeout(showQuestion, 500);
 }
 
-function showHint(hint){
-    showFeedback(`Hint: ${hint}`);
+// =========================
+// Show Quiz Result
+// =========================
+function showQuizResult() {
+    const percent = Math.round((score / totalQuestions) * 100);
+    let status = percent >= 50 ? "Passed 🎉" : "Failed ❌";
+    if (percent === 100) userProfile.achievements.push(`${currentGrade} Quiz Master!`);
+
+    document.getElementById("content").innerHTML = `
+        <div class="card">
+            <h2>Quiz Complete!</h2>
+            <p>Score: ${score}/${totalQuestions} (${percent}%)</p>
+            <h3>${status}</h3>
+            <button onclick="loadQuizByGrade()">Retry Quiz</button>
+        </div>
+    `;
 }
 
-// ============================
-// Init
-// ============================
-window.onload = function(){
-    loadHome();
-}
+// =========================
+// Load Homepage on Start
+// =========================
+window.onload = loadHome;
