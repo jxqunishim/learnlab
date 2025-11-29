@@ -1,25 +1,22 @@
-// Function to show feedback messages
 function showFeedback(message, correct) {
     const feedbackDiv = document.getElementById("feedback");
     feedbackDiv.textContent = message;
-    feedbackDiv.style.fontWeight = "bold";
-    feedbackDiv.style.fontSize = "18px";
-    feedbackDiv.style.marginTop = "15px";
 
     if (correct) {
-        if (message.includes("Brilliant")) feedbackDiv.style.color = "#f1c40f";
-        else if (message.includes("Perfect")) feedbackDiv.style.color = "#3498db";
-        else if (message.includes("Great")) feedbackDiv.style.color = "#2ecc71";
-        else feedbackDiv.style.color = "#1cc88a";
+        feedbackDiv.style.backgroundColor = "#1cc88a"; // green for correct
     } else {
-        feedbackDiv.style.color = "#e74a3b";
+        feedbackDiv.style.backgroundColor = "#e74a3b"; // red for incorrect
     }
 
     feedbackDiv.classList.remove("pop");
-    void feedbackDiv.offsetWidth;
+    void feedbackDiv.offsetWidth; // force reflow
     feedbackDiv.classList.add("pop");
+    feedbackDiv.style.opacity = "1";
 
-    setTimeout(() => { feedbackDiv.style.opacity = "0"; }, 2000);
+    // Automatically hide after 2 seconds
+    setTimeout(() => {
+        feedbackDiv.style.opacity = "0";
+    }, 2000);
 }
 
 // Load homepage at start
@@ -104,3 +101,4 @@ function checkScience() {
     if (ans.includes("sun") || ans.includes("water") || ans.includes("light")) showFeedback(positive[Math.floor(Math.random()*positive.length)], true);
     else showFeedback("Try again!", false);
 }
+
