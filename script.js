@@ -4,23 +4,33 @@ let currentQ = 0;
 let score = 0;
 
 const allQuestions = {
-    "JK": [
-        { q: "2 + 1 = ?", a: "3" },
-        { q: "Color of the sky?", a: "blue" },
-        { q: "Number of fingers?", a: "10" }
-    ],
-    "K": [
-        { q: "5 - 2 = ?", a: "3" },
-        { q: "Which is a fruit?", a: "apple" },
-        { q: "Shape with 3 sides?", a: "triangle" }
-    ],
-    "1": [
-        { q: "7 + 5 = ?", a: "12" },
-        { q: "First letter of alphabet?", a: "a" },
-        { q: "How many days in a week?", a: "7" }
-    ]
-    // Add more grades if needed
+    "JK": generateQuestions(10, "JK"),
+    "K": generateQuestions(10, "K"),
+    "1": generateQuestions(10, "1"),
+    "2": generateQuestions(10, "2"),
+    "3": generateQuestions(10, "3"),
+    "4": generateQuestions(10, "4"),
+    "5": generateQuestions(20, "5"),
+    "6": generateQuestions(20, "6"),
+    "7": generateQuestions(20, "7"),
+    "8": generateQuestions(20, "8"),
+    "9": generateQuestions(30, "9"),
+    "10": generateQuestions(30, "10"),
+    "11": generateQuestions(30, "11"),
+    "12": generateQuestions(30, "12")
 };
+
+// Generate dummy questions
+function generateQuestions(count, grade) {
+    let arr = [];
+    for (let i = 1; i <= count; i++) {
+        arr.push({
+            q: `Grade ${grade} Question ${i}: What is ${i} + ${i}?`,
+            a: `${i + i}`
+        });
+    }
+    return arr;
+}
 
 function selectGrade() {
     const dropdown = document.getElementById("gradeDropdown");
@@ -34,7 +44,7 @@ function selectGrade() {
 
 function loadHome() {
     document.getElementById("content").innerHTML = `
-        <h2 style="text-align:center;">Choose your grade</h2>
+        <h2 style="text-align:center; margin-top:50px;">Select your grade to start the quiz</h2>
     `;
     document.getElementById("feedback").style.display = "none";
 }
@@ -45,7 +55,7 @@ function loadQuiz() {
         return;
     }
 
-    questions = [...allQuestions[selectedGrade]]; // clone
+    questions = [...allQuestions[selectedGrade]];
     shuffleArray(questions);
     currentQ = 0;
     score = 0;
@@ -55,9 +65,11 @@ function loadQuiz() {
 function showQuestion() {
     if (currentQ >= questions.length) {
         document.getElementById("content").innerHTML = `
-            <h2>Quiz Completed!</h2>
-            <p>Your Score: ${score} / ${questions.length} (${Math.round(score / questions.length * 100)}%)</p>
-            <button onclick="loadQuiz()">Retry</button>
+            <div class="lesson-box">
+                <h2>Quiz Completed!</h2>
+                <p>Your Score: ${score} / ${questions.length} (${Math.round(score/questions.length*100)}%)</p>
+                <button onclick="loadQuiz()">Retry</button>
+            </div>
         `;
         return;
     }
@@ -68,7 +80,7 @@ function showQuestion() {
             <h2>Question ${currentQ + 1} of ${questions.length}</h2>
             <p>${q.q}</p>
             <input id="answerInput" type="text" placeholder="Your answer">
-            <br><br>
+            <br>
             <button onclick="submitAnswer()">Submit</button>
         </div>
     `;
@@ -84,19 +96,19 @@ function submitAnswer() {
     const feedbackDiv = document.getElementById("feedback");
     feedbackDiv.style.display = "block";
     feedbackDiv.textContent = correct ? "Correct! ✅" : `Wrong! ❌ Answer: ${questions[currentQ].a}`;
+    feedbackDiv.classList.remove("pop");
+    void feedbackDiv.offsetWidth; // force reflow
     feedbackDiv.classList.add("pop");
 
     currentQ++;
     setTimeout(showQuestion, 1000);
 }
 
-// Utility: shuffle array
 function shuffleArray(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+    for (let i = arr.length-1; i>0; i--) {
+        const j = Math.floor(Math.random()* (i+1));
         [arr[i], arr[j]] = [arr[j], arr[i]];
     }
 }
 
-// Load home on start
 window.onload = loadHome;
