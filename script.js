@@ -1,104 +1,137 @@
+// Question data for subjects
+const questions = {
+    math: [
+        { q: "7 + 6 = ?", a: "13" },
+        { q: "5 x 3 = ?", a: "15" },
+        { q: "12 - 4 = ?", a: "8" }
+    ],
+    reading: [
+        { q: 'Where did the cat sit in: "The cat sat on the warm windowsill."', a: "window" },
+        { q: 'What is the color of the cat in: "The black cat ran fast."', a: "black" }
+    ],
+    science: [
+        { q: "What do plants need to grow?", a: ["sun","water","light"] },
+        { q: "What gas do humans breathe in?", a: "oxygen" }
+    ]
+};
+
+let currentSubject = "";
+let currentQuestion = 0;
+let score = 0;
+
 function showFeedback(message, correct) {
     const feedbackDiv = document.getElementById("feedback");
     feedbackDiv.textContent = message;
 
-    if (correct) {
-        feedbackDiv.style.backgroundColor = "#1cc88a"; // green for correct
-    } else {
-        feedbackDiv.style.backgroundColor = "#e74a3b"; // red for incorrect
-    }
+    if (correct) feedbackDiv.style.backgroundColor = "#1cc88a";
+    else feedbackDiv.style.backgroundColor = "#e74a3b";
 
     feedbackDiv.classList.remove("pop");
-    void feedbackDiv.offsetWidth; // force reflow
+    void feedbackDiv.offsetWidth;
     feedbackDiv.classList.add("pop");
     feedbackDiv.style.opacity = "1";
 
-    // Automatically hide after 2 seconds
-    setTimeout(() => {
-        feedbackDiv.style.opacity = "0";
-    }, 2000);
+    setTimeout(() => { feedbackDiv.style.opacity = "0"; }, 2000);
 }
 
-// Load homepage at start
+// Load homepage
 window.onload = loadHome;
 
-// ---------------------- HOME PAGE ----------------------
 function loadHome() {
     document.getElementById("content").innerHTML = `
         <h2 style="text-align:center; margin-top:35px;">Choose a Subject</h2>
         <div class="subject-grid">
-            <div class="subject-card" onclick="loadMath()">
+            <div class="subject-card" onclick="startTest('math')">
                 <h3>Math</h3>
                 <p>Practice skills & challenges</p>
             </div>
-            <div class="subject-card" onclick="loadReading()">
+            <div class="subject-card" onclick="startTest('reading')">
                 <h3>Reading</h3>
                 <p>Comprehension & vocabulary</p>
             </div>
-            <div class="subject-card" onclick="loadScience()">
+            <div class="subject-card" onclick="startTest('science')">
                 <h3>Science</h3>
                 <p>Learn about the world</p>
             </div>
         </div>
     `;
+    const scoreBox = document.getElementById("score");
+    if (scoreBox) scoreBox.remove();
 }
 
-// ---------------------- MATH ----------------------
-function loadMath() {
-    document.getElementById("content").innerHTML = `<div id="feedback"></div>
+// Start a test
+function startTest(subject) {
+    currentSubject = subject;
+    currentQuestion = 0;
+    score = 0;
+
+    if (!document.getElementById("score")) {
+        const scoreDiv = document.createElement("div");
+        scoreDiv.id = "score";
+        scoreDiv.textContent = `Score: 0 / ${questions[subject].length}`;
+        document.body.appendChild(scoreDiv);
+    }
+    showQuestion();
+}
+
+// Show current question
+function showQuestion() {
+    const q = questions[currentSubject][currentQuestion];
+    let inputType = "text";
+
+    document.getElementById("content").innerHTML = `
+        <div id="feedback"></div>
         <div class="lesson-box">
-            <h2>Math Practice</h2>
-            <p>Solve: <b>7 + 6 = ?</b></p>
-            <input id="mathInput" type="number" placeholder="Your answer">
+            <h2>${currentSubject.toUpperCase()} Question ${currentQuestion+1}</h2>
+            <p>${q.q}</p>
+            <input id="answerInput" type="${inputType}" placeholder="Your answer">
             <br>
-            <button onclick="checkMath()">Submit</button>
-        </div>`;
+            <button onclick="checkAnswer()">Submit</button>
+        </div>
+    `;
 }
 
-function checkMath() {
-    let ans = document.getElementById("mathInput").value;
-    const positive = ["Brilliant! 🎉", "Correct! ✅", "Great! 🌟", "Perfect! ✨"];
-    if (ans == 13) showFeedback(positive[Math.floor(Math.random()*positive.length)], true);
-    else showFeedback("Try again!", false);
+// Check answer
+function checkAnswer() {
+    const q = questions[currentSubject][currentQuestion];
+    let ans = document.getElementById("answerInput").value.toLowerCase();
+    let correct = false;
+
+    if (Array.isArray(q.a)) {
+        for (let a of q.a) if (ans.includes(a)) correct = true;
+    } else {
+        if (ans.includes(q.a.toLowerCase())) correct = true;
+    }
+
+    if (correct) {
+        score++;
+        showFeedback("Correct! ✅", true);
+    } else {
+        showFeedback("Try again! ❌", false);
+    }
+
+    document.getElementById("score").textContent = `Score: ${score} / ${questions[currentSubject].length}`;
+
+    currentQuestion++;
+    if (currentQuestion < questions[currentSubject].length) {
+        setTimeout(showQuestion, 1500);
+    } else {
+        setTimeout(showResult, 1500);
+    }
 }
 
-// ---------------------- READING ----------------------
-function loadReading() {
-    document.getElementById("content").innerHTML = `<div id="feedback"></div>
+// Show final result
+function showResult() {
+    let percentage = Math.round((score / questions[currentSubject].length) * 100);
+    let resultMsg = percentage === 100 ? "🎉 You passed!" : (percentage <= 50 ? "❌ You failed!" : "👍 Good try!");
+
+    document.getElementById("content").innerHTML = `
+        <div id="feedback"></div>
         <div class="lesson-box">
-            <h2>Reading Practice</h2>
-            <p>Read this sentence:</p>
-            <p><i>"The cat sat on the warm windowsill."</i></p>
-            <p>Where did the cat sit?</p>
-            <input id="readingInput" type="text" placeholder="Your answer">
-            <br>
-            <button onclick="checkReading()">Submit</button>
-        </div>`;
+            <h2>${currentSubject.toUpperCase()} Test Completed</h2>
+            <p>Your Score: ${score} / ${questions[currentSubject].length} (${percentage}%)</p>
+            <h3>${resultMsg}</h3>
+            <button onclick="loadHome()">Back to Home</button>
+        </div>
+    `;
 }
-
-function checkReading() {
-    let ans = document.getElementById("readingInput").value.toLowerCase();
-    const positive = ["Brilliant! 🎉", "Correct! ✅", "Great! 🌟", "Perfect! ✨"];
-    if (ans.includes("window")) showFeedback(positive[Math.floor(Math.random()*positive.length)], true);
-    else showFeedback("Try again!", false);
-}
-
-// ---------------------- SCIENCE ----------------------
-function loadScience() {
-    document.getElementById("content").innerHTML = `<div id="feedback"></div>
-        <div class="lesson-box">
-            <h2>Science Practice</h2>
-            <p>What do plants need to grow?</p>
-            <input id="scienceInput" type="text" placeholder="Your answer">
-            <br>
-            <button onclick="checkScience()">Submit</button>
-        </div>`;
-}
-
-function checkScience() {
-    let ans = document.getElementById("scienceInput").value.toLowerCase();
-    const positive = ["Brilliant! 🎉", "Correct! ✅", "Great! 🌟", "Perfect! ✨"];
-    if (ans.includes("sun") || ans.includes("water") || ans.includes("light")) showFeedback(positive[Math.floor(Math.random()*positive.length)], true);
-    else showFeedback("Try again!", false);
-}
-
