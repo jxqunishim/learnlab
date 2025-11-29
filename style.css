@@ -1,129 +1,205 @@
+/* ------------------------------
+   GOOGLE FONT
+------------------------------ */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+/* ------------------------------
+   GLOBAL STYLES
+------------------------------ */
 body {
     margin: 0;
-    font-family: "Poppins", Arial, sans-serif;
-    background: #0B1220;
+    font-family: 'Poppins', sans-serif;
+    background: #0A0F1C; /* Dark navy */
     color: #DCEBFF;
     overflow-x: hidden;
 }
 
-/* Page transition */
-.fade {
+/* Fade animation */
+#content {
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transition: 0.4s ease;
 }
-.fade.show {
+#content.show {
     opacity: 1;
 }
 
-/* HEADER */
+/* ------------------------------
+   HEADER
+------------------------------ */
 header {
-    background: #0F1A33;
-    color: white;
+    background: #0D1326;
+    padding: 15px 30px;
     display: flex;
     justify-content: space-between;
-    padding: 18px 25px;
     align-items: center;
-    border-bottom: 2px solid #4FA3FF;
+    border-bottom: 2px solid #1B2A49;
+    position: sticky;
+    top: 0;
+    z-index: 999;
 }
 
 .logo {
     font-size: 28px;
-    font-weight: 600;
+    font-weight: 700;
     color: #4FA3FF;
+    cursor: pointer;
 }
 
+/* NAVIGATION */
 .nav a {
-    margin-right: 25px;
+    color: #AFCBFF;
+    margin-left: 25px;
     cursor: pointer;
-    color: #ffffff;
     font-size: 18px;
-    transition: 0.2s;
+    text-decoration: none;
+    transition: 0.3s;
 }
 
 .nav a:hover {
     color: #4FA3FF;
+    text-shadow: 0px 0px 8px #4FA3FF;
 }
 
+/* ------------------------------
+   GRADE DROPDOWN
+------------------------------ */
 #gradeSelect {
-    padding: 8px 14px;
-    border-radius: 6px;
-    border: 2px solid #4FA3FF;
-    background: #0B1220;
-    color: white;
+    background: #0D1326;
+    border: 1px solid #1B2A49;
+    padding: 8px 12px;
+    color: #DCEBFF;
     font-size: 16px;
+    border-radius: 6px;
+    outline: none;
+    transition: 0.2s;
+    margin-left: 15px;
 }
 
-/* MAIN CONTENT BOXES */
-.lesson-box, .profile-box {
-    background: #111B34;
-    width: 70%;
-    margin: 40px auto;
+#gradeSelect:hover,
+#gradeSelect:focus {
+    border-color: #4FA3FF;
+}
+
+/* ------------------------------
+   MAIN CONTENT BOXES
+------------------------------ */
+.lesson-box,
+.profile-box {
+    background: #111A33;
+    width: 60%;
+    margin: 50px auto;
     padding: 35px;
-    border-radius: 12px;
-    box-shadow: 0 0 18px rgba(79, 163, 255, 0.25);
+    border-radius: 14px;
+    box-shadow: 0px 0px 20px rgba(79, 163, 255, 0.15);
+    border: 1px solid #1B2A49;
+    animation: fadeUp 0.4s ease;
 }
 
-/* Inputs */
+/* fade upward animation */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 input {
+    width: 80%;
     padding: 12px;
-    width: 70%;
-    border-radius: 10px;
-    border: 2px solid #4FA3FF;
-    background: #0B1220;
-    color: white;
+    border-radius: 8px;
+    margin-top: 15px;
+    border: 1px solid #2B3F67;
+    background: #0D1326;
+    color: #DCEBFF;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
 }
 
-/* Buttons */
+input:focus {
+    border-color: #4FA3FF;
+    box-shadow: 0px 0px 10px rgba(79, 163, 255, 0.4);
+}
+
+/* ------------------------------
+   BUTTONS
+------------------------------ */
 button {
     margin-top: 20px;
-    padding: 12px 25px;
-    background: #4FA3FF;
-    border: none;
-    border-radius: 8px;
-    color: #0B1220;
+    padding: 12px 24px;
     font-size: 18px;
+    background: #4FA3FF;
+    color: white;
+    border: none;
+    border-radius: 10px;
     cursor: pointer;
+    transition: 0.3s ease;
 }
 
 button:hover {
     background: #76B9FF;
+    box-shadow: 0px 0px 12px #4FA3FF;
 }
 
-/* FEEDBACK POPUP */
+/* ------------------------------
+   SCORE BOX (top-right)
+------------------------------ */
+#scoreBox {
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    background: #111A33;
+    padding: 15px 20px;
+    border-radius: 12px;
+    border: 1px solid #1B2A49;
+    box-shadow: 0px 0px 12px rgba(79, 163, 255, 0.2);
+    color: #4FA3FF;
+    font-size: 20px;
+    z-index: 900;
+}
+
+/* ------------------------------
+   FEEDBACK POPUP (center box)
+------------------------------ */
 #feedbackBox {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    background: #162447;
-    width: 380px;
-    padding: 25px;
+    transform: translate(-50%, -50%) scale(0.6);
+    background: #111A33;
+    padding: 25px 40px;
     border-radius: 14px;
     font-size: 28px;
-    text-align: center;
-    border: 3px solid #4FA3FF;
+    font-weight: 600;
+    color: #DCEBFF;
+    border: 2px solid #4FA3FF;
     opacity: 0;
-    transition: opacity 0.3s ease;
-    box-shadow: 0 0 20px rgba(79,163,255,0.45);
+    transition: 0.3s ease;
+    box-shadow: 0px 0px 25px rgba(79, 163, 255, 0.35);
+    z-index: 1000;
 }
 
 #feedbackBox.show {
     opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
 }
 
-.hidden {
+#feedbackBox.hidden {
     display: none;
 }
 
-/* SCORE BOX */
-#scoreBox {
-    position: fixed;
-    top: 110px;
-    right: 20px;
-    background: #0F1A33;
-    border: 2px solid #4FA3FF;
-    padding: 15px 20px;
-    border-radius: 12px;
-    font-size: 20px;
-    box-shadow: 0 0 12px rgba(79,163,255,0.3);
+/* ------------------------------
+   MOBILE RESPONSIVE
+------------------------------ */
+@media (max-width: 900px) {
+    .lesson-box, .profile-box {
+        width: 90%;
+    }
+    #scoreBox {
+        top: 100px;
+        right: 10px;
+        padding: 10px 15px;
+        font-size: 16px;
+    }
+    button {
+        font-size: 16px;
+    }
 }
