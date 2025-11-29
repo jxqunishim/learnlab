@@ -1,4 +1,4 @@
-// Example: Math questions
+// Example: Math questions (if you want to expand later)
 const mathQuestions = [
     { question: "7 + 6 = ?", answer: 13 },
     { question: "5 x 3 = ?", answer: 15 },
@@ -133,10 +133,6 @@ function checkScience() {
         const msg = positiveResponses[Math.floor(Math.random() * positiveResponses.length)];
         showFeedback(msg, true);
     } else {
-        showFeedback("Try again!", false);
-    }
-}
-
         showFeedback("Try again!", false);
     }
 }
