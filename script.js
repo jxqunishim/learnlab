@@ -1,4 +1,4 @@
-// Question data for subjects
+// Questions
 const questions = {
     math: [
         { q: "7 + 6 = ?", a: "13" },
@@ -18,48 +18,45 @@ const questions = {
 let currentSubject = "";
 let currentQuestion = 0;
 let score = 0;
+let timerInterval = null;
 
 function showFeedback(message, correct) {
     const feedbackDiv = document.getElementById("feedback");
     feedbackDiv.textContent = message;
-
-    if (correct) feedbackDiv.style.backgroundColor = "#1cc88a";
-    else feedbackDiv.style.backgroundColor = "#e74a3b";
-
+    feedbackDiv.style.backgroundColor = correct ? "#1cc88a" : "#e74a3b";
     feedbackDiv.classList.remove("pop");
     void feedbackDiv.offsetWidth;
     feedbackDiv.classList.add("pop");
     feedbackDiv.style.opacity = "1";
-
     setTimeout(() => { feedbackDiv.style.opacity = "0"; }, 2000);
 }
 
-// Load homepage
+function updateScore() {
+    const scoreDiv = document.getElementById("score");
+    if (scoreDiv) {
+        scoreDiv.textContent = `Score: ${score} / ${questions[currentSubject].length}`;
+        scoreDiv.classList.add("update");
+        setTimeout(() => scoreDiv.classList.remove("update"), 300);
+    }
+}
+
+// Load home page
 window.onload = loadHome;
 
 function loadHome() {
     document.getElementById("content").innerHTML = `
         <h2 style="text-align:center; margin-top:35px;">Choose a Subject</h2>
         <div class="subject-grid">
-            <div class="subject-card" onclick="startTest('math')">
-                <h3>Math</h3>
-                <p>Practice skills & challenges</p>
-            </div>
-            <div class="subject-card" onclick="startTest('reading')">
-                <h3>Reading</h3>
-                <p>Comprehension & vocabulary</p>
-            </div>
-            <div class="subject-card" onclick="startTest('science')">
-                <h3>Science</h3>
-                <p>Learn about the world</p>
-            </div>
+            <div class="subject-card" onclick="startTest('math')"><h3>Math</h3><p>Practice skills & challenges</p></div>
+            <div class="subject-card" onclick="startTest('reading')"><h3>Reading</h3><p>Comprehension & vocabulary</p></div>
+            <div class="subject-card" onclick="startTest('science')"><h3>Science</h3><p>Learn about the world</p></div>
         </div>
     `;
-    const scoreBox = document.getElementById("score");
-    if (scoreBox) scoreBox.remove();
+    const scoreDiv = document.getElementById("score");
+    if (scoreDiv) scoreDiv.remove();
 }
 
-// Start a test
+// Start test
 function startTest(subject) {
     currentSubject = subject;
     currentQuestion = 0;
@@ -74,17 +71,17 @@ function startTest(subject) {
     showQuestion();
 }
 
-// Show current question
+// Show question
 function showQuestion() {
+    if (timerInterval) clearInterval(timerInterval);
     const q = questions[currentSubject][currentQuestion];
-    let inputType = "text";
 
     document.getElementById("content").innerHTML = `
         <div id="feedback"></div>
         <div class="lesson-box">
             <h2>${currentSubject.toUpperCase()} Question ${currentQuestion+1}</h2>
             <p>${q.q}</p>
-            <input id="answerInput" type="${inputType}" placeholder="Your answer">
+            <input id="answerInput" type="text" placeholder="Your answer">
             <br>
             <button onclick="checkAnswer()">Submit</button>
         </div>
@@ -94,13 +91,13 @@ function showQuestion() {
 // Check answer
 function checkAnswer() {
     const q = questions[currentSubject][currentQuestion];
-    let ans = document.getElementById("answerInput").value.toLowerCase();
+    const ans = document.getElementById("answerInput").value.toLowerCase();
     let correct = false;
 
     if (Array.isArray(q.a)) {
-        for (let a of q.a) if (ans.includes(a)) correct = true;
+        correct = q.a.some(a => ans.includes(a));
     } else {
-        if (ans.includes(q.a.toLowerCase())) correct = true;
+        correct = ans.includes(q.a.toLowerCase());
     }
 
     if (correct) {
@@ -110,27 +107,27 @@ function checkAnswer() {
         showFeedback("Try again! ❌", false);
     }
 
-    document.getElementById("score").textContent = `Score: ${score} / ${questions[currentSubject].length}`;
+    updateScore();
 
     currentQuestion++;
     if (currentQuestion < questions[currentSubject].length) {
-        setTimeout(showQuestion, 1500);
+        setTimeout(showQuestion, 1800);
     } else {
-        setTimeout(showResult, 1500);
+        setTimeout(showResult, 1800);
     }
 }
 
 // Show final result
 function showResult() {
-    let percentage = Math.round((score / questions[currentSubject].length) * 100);
-    let resultMsg = percentage === 100 ? "🎉 You passed!" : (percentage <= 50 ? "❌ You failed!" : "👍 Good try!");
+    const percentage = Math.round((score / questions[currentSubject].length) * 100);
+    let msg = percentage === 100 ? "🎉 You passed!" : (percentage <= 50 ? "❌ You failed!" : "👍 Good try!");
 
     document.getElementById("content").innerHTML = `
         <div id="feedback"></div>
         <div class="lesson-box">
             <h2>${currentSubject.toUpperCase()} Test Completed</h2>
             <p>Your Score: ${score} / ${questions[currentSubject].length} (${percentage}%)</p>
-            <h3>${resultMsg}</h3>
+            <h3>${msg}</h3>
             <button onclick="loadHome()">Back to Home</button>
         </div>
     `;
