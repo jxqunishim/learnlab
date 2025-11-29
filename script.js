@@ -3,30 +3,63 @@ let currentQuestions = [];
 let currentIndex = 0;
 let score = 0;
 
+/* Save & Load Profile */
+let student = {
+    name: localStorage.getItem("studentName") || "",
+    grade: localStorage.getItem("studentGrade") || ""
+};
+
+function openProfile() {
+    document.getElementById("content").innerHTML = `
+        <div class="profile-box">
+            <h2>Student Profile</h2>
+            <label>Name:</label><br>
+            <input id="profileName" value="${student.name}">
+            <br><br>
+
+            <label>Grade:</label><br>
+            <input id="profileGrade" value="${student.grade}">
+            <br><br>
+
+            <button onclick="saveProfile()">Save Profile</button>
+        </div>
+    `;
+}
+
+function saveProfile() {
+    student.name = document.getElementById("profileName").value;
+    student.grade = document.getElementById("profileGrade").value;
+
+    localStorage.setItem("studentName", student.name);
+    localStorage.setItem("studentGrade", student.grade);
+
+    loadHome();
+}
+
 /* Question bank */
 const questionBank = {
     "JK": [
         { q: "What color is the sky?", a: "blue" },
-        { q: "How many fingers on one hand?", a: "5" },
-        { q: "What sound does a dog make?", a: "bark" }
+        { q: "How many wheels does a car have?", a: "4" },
+        { q: "What sound does a cat make?", a: "meow" }
     ],
 
-    "Grade 5": [
-        { q: "12 × 4 = ?", a: "48" },
-        { q: "What planet is known as the Red Planet?", a: "mars" },
-        { q: "What is the past tense of 'run'?", a: "ran" }
+    "Grade 4": [
+        { q: "20 ÷ 4 = ?", a: "5" },
+        { q: "What gas do plants absorb?", a: "carbon dioxide" },
+        { q: "Opposite of 'brave'?", a: "scared" }
     ],
 
-    "Grade 9": [
-        { q: "Solve: 2x + 6 = 14 (x = ?)", a: "4" },
-        { q: "What gas do plants release?", a: "oxygen" },
-        { q: "What is the square root of 81?", a: "9" }
+    "Grade 8": [
+        { q: "Solve: 3x + 9 = 21", a: "4" },
+        { q: "What is the capital of Canada?", a: "ottawa" },
+        { q: "What is the chemical symbol for water?", a: "h2o" }
     ],
 
     "Grade 12": [
-        { q: "Derivative of 3x²?", a: "6x" },
-        { q: "Who wrote 'Macbeth'?", a: "shakespeare" },
-        { q: "What is the powerhouse of the cell?", a: "mitochondria" }
+        { q: "Derivative of x²?", a: "2x" },
+        { q: "Who wrote Hamlet?", a: "shakespeare" },
+        { q: "What is the mitochondria?", a: "powerhouse of the cell" }
     ]
 };
 
@@ -37,12 +70,11 @@ function getQuestionCount() {
     return 30;
 }
 
-/* Shuffle array */
 function shuffle(arr) {
     return arr.sort(() => Math.random() - 0.5);
 }
 
-/* Grade selected */
+/* Grade menu */
 function selectGrade() {
     selectedGrade = document.getElementById("gradeSelect").value;
     if (!selectedGrade) return;
@@ -53,24 +85,21 @@ function selectGrade() {
 /* Load quiz */
 function loadQuiz() {
     const total = getQuestionCount();
+    let base = questionBank[selectedGrade] || questionBank["JK"];
 
-    let baseQuestions = questionBank[selectedGrade] || questionBank["JK"];
-    let multiplied = [];
+    while (base.length < total) base = base.concat(base);
 
-    while (multiplied.length < total) {
-        multiplied.push(...baseQuestions);
-    }
+    currentQuestions = shuffle(base).slice(0, total);
 
-    currentQuestions = shuffle(multiplied).slice(0, total);
     currentIndex = 0;
     score = 0;
 
     document.getElementById("scoreBox")?.remove();
 
-    let scoreBox = document.createElement("div");
-    scoreBox.id = "scoreBox";
-    scoreBox.innerText = `Score: 0 / ${total}`;
-    document.body.appendChild(scoreBox);
+    let box = document.createElement("div");
+    box.id = "scoreBox";
+    box.innerText = `Score: 0 / ${total}`;
+    document.body.appendChild(box);
 
     showQuestion();
 }
@@ -89,39 +118,32 @@ function showQuestion() {
 
 /* Feedback popup */
 function showFeedback(msg, color) {
-    const box = document.getElementById("feedbackBox");
+    let box = document.getElementById("feedbackBox");
     box.innerText = msg;
     box.style.color = color;
+
     box.classList.add("show");
     box.classList.remove("hidden");
 
     setTimeout(() => {
         box.classList.remove("show");
-    }, 1200);
+    }, 1000);
 }
 
 /* Submit answer */
 function submitAnswer() {
     let input = document.getElementById("answerInput").value.toLowerCase().trim();
-    let correct = currentQuestions[currentIndex].a.toLowerCase();
+    let correct = currentQuestions[currentIndex].a.toLowerCase().trim();
 
     if (input === correct) {
         score++;
-        showFeedback("Correct!", "green");
+        showFeedback("Correct!", "#00FFAA");
     } else {
-        showFeedback("Incorrect!", "red");
+        showFeedback("Incorrect!", "#FF5555");
     }
 
     updateScore();
-    next();
-}
 
-function updateScore() {
-    document.getElementById("scoreBox").innerText =
-        `Score: ${score} / ${getQuestionCount()}`;
-}
-
-function next() {
     currentIndex++;
 
     if (currentIndex >= currentQuestions.length) {
@@ -129,6 +151,11 @@ function next() {
     } else {
         setTimeout(showQuestion, 800);
     }
+}
+
+function updateScore() {
+    document.getElementById("scoreBox").innerText =
+        `Score: ${score} / ${getQuestionCount()}`;
 }
 
 /* Finish quiz */
@@ -147,12 +174,12 @@ function finishQuiz() {
     `;
 }
 
-/* Home screen */
+/* Home */
 function loadHome() {
     document.getElementById("content").innerHTML = `
         <div class="lesson-box">
-            <h2>Welcome to LearnLab</h2>
-            <p>Select a grade from the top-right menu to begin.</p>
+            <h2>Welcome, ${student.name || "Student"}!</h2>
+            <p>Select your grade from the top menu to begin a quiz.</p>
         </div>
     `;
 }
