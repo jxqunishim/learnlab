@@ -1,10 +1,3 @@
-// Example: Math questions (if you want to expand later)
-const mathQuestions = [
-    { question: "7 + 6 = ?", answer: 13 },
-    { question: "5 x 3 = ?", answer: 15 },
-    { question: "12 - 4 = ?", answer: 8 }
-];
-
 // Function to show feedback messages
 function showFeedback(message, correct) {
     const feedbackDiv = document.getElementById("feedback");
@@ -14,44 +7,37 @@ function showFeedback(message, correct) {
     feedbackDiv.style.marginTop = "15px";
 
     if (correct) {
-        if (message.includes("Brilliant")) feedbackDiv.style.color = "#f1c40f"; // gold
-        else if (message.includes("Perfect")) feedbackDiv.style.color = "#3498db"; // blue
-        else if (message.includes("Great")) feedbackDiv.style.color = "#2ecc71"; // green
-        else feedbackDiv.style.color = "#1cc88a"; // default green
+        if (message.includes("Brilliant")) feedbackDiv.style.color = "#f1c40f";
+        else if (message.includes("Perfect")) feedbackDiv.style.color = "#3498db";
+        else if (message.includes("Great")) feedbackDiv.style.color = "#2ecc71";
+        else feedbackDiv.style.color = "#1cc88a";
     } else {
-        feedbackDiv.style.color = "#e74a3b"; // red for wrong
+        feedbackDiv.style.color = "#e74a3b";
     }
 
     feedbackDiv.classList.remove("pop");
-    void feedbackDiv.offsetWidth; // force reflow
+    void feedbackDiv.offsetWidth;
     feedbackDiv.classList.add("pop");
 
-    setTimeout(() => {
-        feedbackDiv.style.opacity = "0";
-    }, 2000);
+    setTimeout(() => { feedbackDiv.style.opacity = "0"; }, 2000);
 }
 
 // Load homepage at start
-window.onload = function() {
-    loadHome();
-};
+window.onload = loadHome;
 
 // ---------------------- HOME PAGE ----------------------
 function loadHome() {
     document.getElementById("content").innerHTML = `
         <h2 style="text-align:center; margin-top:35px;">Choose a Subject</h2>
-
         <div class="subject-grid">
             <div class="subject-card" onclick="loadMath()">
                 <h3>Math</h3>
                 <p>Practice skills & challenges</p>
             </div>
-
             <div class="subject-card" onclick="loadReading()">
                 <h3>Reading</h3>
                 <p>Comprehension & vocabulary</p>
             </div>
-
             <div class="subject-card" onclick="loadScience()">
                 <h3>Science</h3>
                 <p>Learn about the world</p>
@@ -69,20 +55,14 @@ function loadMath() {
             <input id="mathInput" type="number" placeholder="Your answer">
             <br>
             <button onclick="checkMath()">Submit</button>
-        </div>
-    `;
+        </div>`;
 }
 
 function checkMath() {
     let ans = document.getElementById("mathInput").value;
-    const positiveResponses = ["Brilliant! 🎉", "Correct! ✅", "Great! 🌟", "Perfect! ✨"];
-    
-    if (ans == 13) {
-        const msg = positiveResponses[Math.floor(Math.random() * positiveResponses.length)];
-        showFeedback(msg, true);
-    } else {
-        showFeedback("Try again!", false);
-    }
+    const positive = ["Brilliant! 🎉", "Correct! ✅", "Great! 🌟", "Perfect! ✨"];
+    if (ans == 13) showFeedback(positive[Math.floor(Math.random()*positive.length)], true);
+    else showFeedback("Try again!", false);
 }
 
 // ---------------------- READING ----------------------
@@ -96,20 +76,14 @@ function loadReading() {
             <input id="readingInput" type="text" placeholder="Your answer">
             <br>
             <button onclick="checkReading()">Submit</button>
-        </div>
-    `;
+        </div>`;
 }
 
 function checkReading() {
     let ans = document.getElementById("readingInput").value.toLowerCase();
-    const positiveResponses = ["Brilliant! 🎉", "Correct! ✅", "Great! 🌟", "Perfect! ✨"];
-    
-    if (ans.includes("window")) {
-        const msg = positiveResponses[Math.floor(Math.random() * positiveResponses.length)];
-        showFeedback(msg, true);
-    } else {
-        showFeedback("Try again!", false);
-    }
+    const positive = ["Brilliant! 🎉", "Correct! ✅", "Great! 🌟", "Perfect! ✨"];
+    if (ans.includes("window")) showFeedback(positive[Math.floor(Math.random()*positive.length)], true);
+    else showFeedback("Try again!", false);
 }
 
 // ---------------------- SCIENCE ----------------------
@@ -121,18 +95,12 @@ function loadScience() {
             <input id="scienceInput" type="text" placeholder="Your answer">
             <br>
             <button onclick="checkScience()">Submit</button>
-        </div>
-    `;
+        </div>`;
 }
 
 function checkScience() {
     let ans = document.getElementById("scienceInput").value.toLowerCase();
-    const positiveResponses = ["Brilliant! 🎉", "Correct! ✅", "Great! 🌟", "Perfect! ✨"];
-    
-    if (ans.includes("sun") || ans.includes("water") || ans.includes("light")) {
-        const msg = positiveResponses[Math.floor(Math.random() * positiveResponses.length)];
-        showFeedback(msg, true);
-    } else {
-        showFeedback("Try again!", false);
-    }
+    const positive = ["Brilliant! 🎉", "Correct! ✅", "Great! 🌟", "Perfect! ✨"];
+    if (ans.includes("sun") || ans.includes("water") || ans.includes("light")) showFeedback(positive[Math.floor(Math.random()*positive.length)], true);
+    else showFeedback("Try again!", false);
 }
