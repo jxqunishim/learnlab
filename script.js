@@ -147,3 +147,106 @@ function closeProfile() {
 
 // ------------------ INITIAL LOAD ------------------
 window.onload = loadHome;
+// ------------------ EXPANDED QUESTION POOLS ------------------
+
+// JK to Grade 3 → 10 questions
+questionsByGrade["JK"] = [
+    { question: "What color is the sun?", options:["Yellow","Blue","Red"], answer:"Yellow" },
+    { question: "How many legs does a spider have?", options:["6","8","10"], answer:"8" },
+    { question: "Which is a fruit?", options:["Apple","Car","Shoe"], answer:"Apple" },
+    { question: "What sound does a dog make?", options:["Meow","Woof","Moo"], answer:"Woof" },
+    { question: "Select the circle", options:["Circle","Square","Triangle"], answer:"Circle" },
+    { question: "Which is a vegetable?", options:["Carrot","Apple","Cake"], answer:"Carrot" },
+    { question: "Which one flies?", options:["Bird","Dog","Cat"], answer:"Bird" },
+    { question: "Which is a number?", options:["4","Cat","Red"], answer:"4" },
+    { question: "What is 1+1?", options:["1","2","3"], answer:"2" },
+    { question: "Which animal has stripes?", options:["Tiger","Elephant","Cow"], answer:"Tiger" }
+];
+
+// Grades 4–8 → 20 questions
+questionsByGrade["Grade 4"] = [
+    { question: "12 ÷ 4 = ?", options:["2","3","4"], answer:"3" },
+    { question: "What gas do we breathe in?", options:["Oxygen","Carbon Dioxide","Nitrogen"], answer:"Oxygen" },
+    { question: "Which one is a planet?", options:["Earth","Sun","Moon"], answer:"Earth" },
+    { question: "Who wrote 'Harry Potter'?", options:["Rowling","Tolkien","Lewis"], answer:"Rowling" },
+    { question: "Which is a prime number?", options:["9","11","15"], answer:"11" },
+    { question: "Water freezes at?", options:["0°C","100°C","50°C"], answer:"0°C" },
+    { question: "What is H2O?", options:["Water","Hydrogen","Oxygen"], answer:"Water" },
+    { question: "Which organ pumps blood?", options:["Heart","Lungs","Brain"], answer:"Heart" },
+    { question: "Which is a mammal?", options:["Whale","Shark","Crocodile"], answer:"Whale" },
+    { question: "7 x 8 = ?", options:["54","56","64"], answer:"56" },
+    { question: "Lightning is caused by?", options:["Electricity","Wind","Rain"], answer:"Electricity" },
+    { question: "Which is a continent?", options:["Asia","Greenland","Amazon"], answer:"Asia" },
+    { question: "Which is renewable energy?", options:["Solar","Coal","Oil"], answer:"Solar" },
+    { question: "Which is heavier?", options:["1kg iron","1kg feathers","Same"], answer:"Same" },
+    { question: "5 + 6 - 2 = ?", options:["9","10","11"], answer:"9" },
+    { question: "Which is acidic?", options:["Lemon","Milk","Sugar"], answer:"Lemon" },
+    { question: "Earth revolves around?", options:["Sun","Moon","Mars"], answer:"Sun" },
+    { question: "Which one is edible?", options:["Stone","Apple","Plastic"], answer:"Apple" },
+    { question: "Which is a verb?", options:["Run","Blue","Tree"], answer:"Run" },
+    { question: "Which is liquid?", options:["Water","Ice","Steam"], answer:"Water" }
+];
+
+// Grades 9–12 → 30 questions
+questionsByGrade["Grade 9"] = [
+    { question: "Solve: 5x + 3 = 18", options:["3","2","5"], answer:"3" },
+    { question: "Which element is O?", options:["Oxygen","Gold","Hydrogen"], answer:"Oxygen" },
+    { question: "Who discovered gravity?", options:["Newton","Einstein","Tesla"], answer:"Newton" },
+    { question: "What is the capital of France?", options:["Paris","Berlin","London"], answer:"Paris" },
+    { question: "H2 + O = ?", options:["Water","Hydrogen","Oxygen"], answer:"Water" },
+    { question: "Which is a quadrilateral?", options:["Square","Triangle","Circle"], answer:"Square" },
+    { question: "Speed = ?", options:["Distance/Time","Time/Distance","Distance+Time"], answer:"Distance/Time" },
+    { question: "pH 7 is?", options:["Neutral","Acidic","Basic"], answer:"Neutral" },
+    { question: "Light travels fastest in?", options:["Vacuum","Water","Air"], answer:"Vacuum" },
+    { question: "Which is a renewable resource?", options:["Solar","Coal","Oil"], answer:"Solar" },
+    { question: "Who painted Mona Lisa?", options:["Da Vinci","Van Gogh","Picasso"], answer:"Da Vinci" },
+    { question: "Which is NOT a planet?", options:["Sun","Mars","Jupiter"], answer:"Sun" },
+    { question: "Force = ?", options:["Mass x Acceleration","Mass/Acceleration","Mass+Acceleration"], answer:"Mass x Acceleration" },
+    { question: "DNA stands for?", options:["Deoxyribonucleic Acid","Ribonucleic Acid","Acid"], answer:"Deoxyribonucleic Acid" },
+    { question: "Which gas is essential for life?", options:["Oxygen","Carbon Dioxide","Nitrogen"], answer:"Oxygen" },
+    { question: "Which is a compound?", options:["H2O","O2","N2"], answer:"H2O" },
+    { question: "Which is an adjective?", options:["Beautiful","Run","Sky"], answer:"Beautiful" },
+    { question: "Which is a mammal?", options:["Dolphin","Shark","Crocodile"], answer:"Dolphin" },
+    { question: "E = mc^2 belongs to?", options:["Einstein","Newton","Tesla"], answer:"Einstein" },
+    { question: "Which one is acidic?", options:["Lemon","Water","Sugar"], answer:"Lemon" },
+    { question: "2x^2 + 3x = ?", options:["Algebra","Calculus","Geometry"], answer:"Algebra" },
+    { question: "Who wrote 'Romeo & Juliet'?", options:["Shakespeare","Tolstoy","Hemingway"], answer:"Shakespeare" },
+    { question: "Which is the largest planet?", options:["Jupiter","Earth","Mars"], answer:"Jupiter" },
+    { question: "What is the freezing point of water?", options:["0°C","100°C","50°C"], answer:"0°C" },
+    { question: "Which is a prime number?", options:["17","18","21"], answer:"17" },
+    { question: "Speed of sound depends on?", options:["Medium","Color","Shape"], answer:"Medium" },
+    { question: "Which organ pumps blood?", options:["Heart","Lungs","Brain"], answer:"Heart" },
+    { question: "Which is an even number?", options:["22","13","7"], answer:"22" },
+    { question: "Photosynthesis occurs in?", options:["Leaves","Roots","Stems"], answer:"Leaves" }
+];
+
+// ------------------ QUIZ LENGTH BASED ON GRADE ------------------
+function getQuizLength() {
+    if (selectedGrade === "JK" || selectedGrade === "Grade 1" || selectedGrade === "Grade 2" || selectedGrade === "Grade 3") return 10;
+    if (selectedGrade === "Grade 4" || selectedGrade === "Grade 5" || selectedGrade === "Grade 6" || selectedGrade === "Grade 7" || selectedGrade === "Grade 8") return 20;
+    return 30; // Grades 9–12
+}
+
+// ------------------ AVATARS ------------------
+const avatars = ["🐱","🐶","🦊","🐼","🐸"];
+
+function selectAvatar(index) {
+    const avatarDisplay = document.getElementById("selectedAvatar");
+    avatarDisplay.textContent = avatars[index];
+    showFeedback(`Avatar Selected: ${avatars[index]}`, true);
+}
+
+// ------------------ ACHIEVEMENTS ------------------
+let achievements = [];
+
+function addAchievement(title) {
+    if (!achievements.includes(title)) {
+        achievements.push(title);
+        updateAchievementsUI();
+    }
+}
+
+function updateAchievementsUI() {
+    const achList = document.getElementById("achievementsList");
+    achList.innerHTML = achievements.map(a => `<li>${a}</li>`).join("");
+}
