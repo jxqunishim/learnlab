@@ -28,7 +28,7 @@ function shuffleArray(array) {
     return array;
 }
 
-// Load home
+// Navigation functions
 function loadHome() {
     document.getElementById("content").innerHTML = `
         <div class="card">
@@ -38,7 +38,6 @@ function loadHome() {
     `;
 }
 
-// Load About
 function loadAbout() {
     document.getElementById("content").innerHTML = `
         <div class="card">
@@ -49,7 +48,16 @@ function loadAbout() {
     `;
 }
 
-// Load quiz by grade
+function loadProfile() {
+    document.getElementById("content").innerHTML = `
+        <div class="card">
+            <h2>Profile</h2>
+            <p>Select an avatar and view achievements here.</p>
+        </div>
+    `;
+}
+
+// Load quiz when both grade and subject are selected
 function loadQuizByGrade() {
     currentGrade = document.getElementById("gradeSelect").value;
     currentSubject = document.getElementById("subjectSelect").value;
@@ -107,24 +115,12 @@ function showFeedback(msg) {
     setTimeout(()=> fb.style.display="none", 1500);
 }
 
-// Load profile (placeholder)
-function loadProfile() {
-    document.getElementById("content").innerHTML = `
-        <div class="card">
-            <h2>Profile</h2>
-            <p>Select an avatar and view achievements here.</p>
-        </div>
-    `;
-}
-
-// Shuffle utility
-function shuffleArray(array){
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-}
-
-// Initialize
-window.onload = loadHome;
+// Add event listeners
+window.onload = function() {
+    loadHome();
+    document.getElementById("homeBtn").addEventListener("click", loadHome);
+    document.getElementById("aboutBtn").addEventListener("click", loadAbout);
+    document.getElementById("profileBtn").addEventListener("click", loadProfile);
+    document.getElementById("gradeSelect").addEventListener("change", loadQuizByGrade);
+    document.getElementById("subjectSelect").addEventListener("change", loadQuizByGrade);
+};
