@@ -3,23 +3,17 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>LearnLab</title>
+    <title>LearnLab 2.0</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
     <!-- HEADER -->
     <header>
-        <h1 class="logo" onclick="loadHome()">LearnLab</h1>
-
+        <h1 class="logo" onclick="loadHome()">LearnLab 2.0</h1>
         <nav class="nav">
-            <!-- Home Button -->
             <a onclick="loadHome()">Home</a>
-
-            <!-- Profile Button -->
             <a onclick="openProfile()">Profile</a>
-
-            <!-- Grade Dropdown -->
             <select id="gradeSelect" onchange="selectGrade()">
                 <option value="">Select Grade</option>
                 <option value="JK">JK</option>
@@ -43,10 +37,27 @@
     <!-- MAIN CONTENT -->
     <main id="content"></main>
 
-    <!-- POPUP FEEDBACK BOX -->
+    <!-- FEEDBACK POPUP -->
     <div id="feedbackBox" class="hidden"></div>
 
-    <!-- JAVASCRIPT -->
+    <!-- PROFILE MODAL -->
+    <div id="profileModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="closeProfile()">&times;</span>
+            <h2>Student Profile</h2>
+            <div id="profileContent"></div>
+        </div>
+    </div>
+
+    <!-- ACHIEVEMENTS MODAL -->
+    <div id="achievementsModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="closeAchievements()">&times;</span>
+            <h2>Achievements</h2>
+            <div id="achievementsContent"></div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
