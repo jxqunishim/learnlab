@@ -1,48 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>LearnLab</title>
-    <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LearnLab</title>
+<link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-    <header>
-        <h1 class="logo">LearnLab</h1>
-
-        <select id="gradeSelect">
+<header>
+    <h1 class="logo">LearnLab</h1>
+    <nav class="nav">
+        <a onclick="loadHome()">Home</a>
+        <select id="gradeSelect" onchange="selectGrade()">
             <option value="">Select Grade</option>
-            <option>JK</option>
-            <option>SK</option>
-            <option>Grade 1</option>
-            <option>Grade 2</option>
-            <option>Grade 3</option>
-            <option>Grade 4</option>
-            <option>Grade 5</option>
-            <option>Grade 6</option>
-            <option>Grade 7</option>
-            <option>Grade 8</option>
-            <option>Grade 9</option>
-            <option>Grade 10</option>
-            <option>Grade 11</option>
-            <option>Grade 12</option>
+            <option value="JK">JK</option>
+            <option value="K">K</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
         </select>
+    </nav>
+</header>
 
-        <nav class="nav">
-            <a onclick="loadHome()">Home</a>
-            <a onclick="startQuiz('math')">Math</a>
-            <a onclick="startQuiz('reading')">Reading</a>
-            <a onclick="startQuiz('science')">Science</a>
-        </nav>
+<main id="content"></main>
 
-        <div id="scoreBox">Score: 0%</div>
-    </header>
-
-    <main id="content"></main>
-
-    <div id="feedbackBox"></div>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
