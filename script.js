@@ -364,3 +364,7 @@ function finishQuiz() {
 
     fadeInContent();
 }
+// Load home page as soon as the website opens
+window.onload = () => {
+    loadHome();
+};
