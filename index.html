@@ -10,10 +10,10 @@
 <header>
     <h1 class="logo">LearnLab</h1>
     <nav class="nav">
-        <a onclick="loadHome()">Home</a>
-        <a onclick="loadAbout()">About</a>
-        <a onclick="loadProfile()">Profile</a>
-        <select id="gradeSelect" onchange="loadQuizByGrade()">
+        <a href="#" id="homeBtn">Home</a>
+        <a href="#" id="aboutBtn">About</a>
+        <a href="#" id="profileBtn">Profile</a>
+        <select id="gradeSelect">
             <option value="">Select Grade</option>
             <option value="JK">JK</option>
             <option value="K">Kindergarten</option>
@@ -30,7 +30,7 @@
             <option value="11">Grade 11</option>
             <option value="12">Grade 12</option>
         </select>
-        <select id="subjectSelect" onchange="loadSubject()">
+        <select id="subjectSelect">
             <option value="">Select Subject</option>
             <option value="math">Math</option>
             <option value="english">English</option>
