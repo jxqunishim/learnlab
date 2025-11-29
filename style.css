@@ -1,262 +1,207 @@
-/* ------------------ RESET ------------------ */
-* {
-    box-sizing: border-box;
+/* ------------------ GENERAL ------------------ */
+body {
     margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #0d1117; /* dark background */
+    color: #c9d1d9; /* light grey text */
+    transition: background-color 0.3s, color 0.3s;
 }
 
-/* ------------------ BODY ------------------ */
-body {
-    background-color: #0d1117;
-    color: #cdd9e5;
-    min-height: 100vh;
+a {
+    cursor: pointer;
 }
 
 /* ------------------ HEADER ------------------ */
 header {
+    background-color: #0f161f; /* slightly lighter dark */
+    color: #58a6ff; /* light blue */
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px;
-    background-color: #161b22;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 
-header .logo {
+.logo {
     font-size: 28px;
     font-weight: bold;
-    color: #1cc8ff;
-    cursor: pointer;
-    transition: 0.3s;
 }
 
-header .logo:hover {
-    text-shadow: 0 0 10px #1cc8ff;
-}
-
-.nav a, .nav select {
-    margin-left: 20px;
-    font-size: 16px;
-    color: #cdd9e5;
+.nav a {
+    margin-left: 25px;
     text-decoration: none;
-    cursor: pointer;
-    transition: 0.3s;
+    color: #58a6ff;
+    font-size: 18px;
+    transition: color 0.2s;
 }
 
 .nav a:hover {
-    color: #1cc8ff;
-}
-
-.nav select {
-    background-color: #161b22;
-    border: 1px solid #1cc8ff;
-    color: #cdd9e5;
-    padding: 5px 10px;
-    border-radius: 6px;
+    color: #1f6feb;
 }
 
 /* ------------------ MAIN CONTENT ------------------ */
 main {
-    padding: 40px;
+    padding: 40px 20px;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
     flex-direction: column;
-    min-height: 80vh;
+    align-items: center;
 }
 
-/* ------------------ SUBJECT CARD ------------------ */
+/* ------------------ SUBJECT GRID ------------------ */
 .subject-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 25px;
+    width: 100%;
+    max-width: 1200px;
 }
 
 .subject-card {
     background-color: #161b22;
     border-radius: 12px;
-    padding: 30px;
+    padding: 25px;
     text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.5);
     cursor: pointer;
-    box-shadow: 0 0 15px rgba(28, 200, 255, 0.3);
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .subject-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 0 20px #1cc8ff;
-}
-
-.subject-card h3 {
-    color: #1cc8ff;
-    margin-bottom: 10px;
-}
-
-.subject-card p {
-    color: #cdd9e5;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.7);
 }
 
 /* ------------------ QUIZ BOX ------------------ */
-.quiz-box {
+.quiz-box, .lesson-box {
     background-color: #161b22;
-    width: 100%;
-    max-width: 700px;
-    margin: 20px auto;
+    width: 80%;
+    max-width: 800px;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 0 15px rgba(28,200,255,0.3);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    margin: 20px 0;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.quiz-box h2 {
-    color: #1cc8ff;
-    margin-bottom: 20px;
+.quiz-box:hover, .lesson-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
 }
 
-.quiz-box input[type="text"], 
-.quiz-box input[type="number"] {
+/* ------------------ INPUTS & BUTTONS ------------------ */
+input[type="text"], input[type="number"], select {
     width: 80%;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 6px;
-    border: 1px solid #1cc8ff;
-    background-color: #0d1117;
-    color: #cdd9e5;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    outline: none;
 }
 
-.quiz-box button {
-    background-color: #1cc8ff;
-    color: #0d1117;
+button {
+    background-color: #58a6ff;
     border: none;
     padding: 12px 20px;
-    margin-top: 15px;
-    font-size: 16px;
     border-radius: 8px;
+    color: #fff;
     cursor: pointer;
-    transition: 0.3s;
+    font-size: 16px;
+    margin-top: 15px;
+    transition: background-color 0.2s, transform 0.2s;
 }
 
-.quiz-box button:hover {
-    background-color: #0ff;
-    box-shadow: 0 0 15px #0ff;
+button:hover {
+    background-color: #1f6feb;
+    transform: scale(1.05);
 }
 
 /* ------------------ FEEDBACK POPUP ------------------ */
-#feedbackBox {
+#feedback {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #161b22;
-    padding: 25px 40px;
-    border-radius: 15px;
-    box-shadow: 0 0 25px #1cc8ff;
+    background-color: #0f161f;
+    color: #58a6ff;
     font-size: 24px;
     font-weight: bold;
-    text-align: center;
-    color: #1cc8ff;
+    padding: 25px 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.7);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.5s, transform 0.5s;
+    text-align: center;
     z-index: 999;
+    transition: opacity 0.3s, transform 0.3s;
 }
 
-#feedbackBox.show {
+#feedback.pop {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1.1);
 }
 
-/* ------------------ MODALS ------------------ */
-.modal {
+/* ------------------ SCOREBOARD ------------------ */
+#scoreBoard {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(13,17,23,0.9);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+    top: 20px;
+    right: 20px;
+    background-color: #161b22;
+    padding: 15px 25px;
+    border-radius: 12px;
+    font-size: 18px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.7);
 }
 
-.modal-content {
+/* ------------------ PROFILE ------------------ */
+#profileBox {
     background-color: #161b22;
-    padding: 30px;
-    border-radius: 12px;
     width: 90%;
     max-width: 600px;
-    box-shadow: 0 0 20px #1cc8ff;
-    position: relative;
+    padding: 30px;
+    border-radius: 12px;
+    margin: 30px auto;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
     text-align: center;
 }
 
-.modal .close {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    color: #1cc8ff;
+#profileBox h2 {
+    color: #58a6ff;
 }
 
-.modal .close:hover {
-    color: #0ff;
+#selectedAvatar {
+    font-size: 50px;
+    margin: 15px 0;
 }
 
-.hidden {
-    display: none;
-}
-
-/* ------------------ PROFILE & AVATARS ------------------ */
+/* ------------------ AVATARS ------------------ */
 .avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
+    font-size: 40px;
     margin: 10px;
     cursor: pointer;
-    border: 2px solid #1cc8ff;
-    transition: 0.3s;
+    transition: transform 0.2s;
 }
 
 .avatar:hover {
-    box-shadow: 0 0 20px #1cc8ff;
-}
-
-#profileContent {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    transform: scale(1.2);
 }
 
 /* ------------------ ACHIEVEMENTS ------------------ */
-#achievementsContent {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px,1fr));
-    gap: 15px;
-    justify-items: center;
+#achievementsBox {
+    margin-top: 20px;
+    text-align: left;
 }
 
-.achievement {
-    background-color: #161b22;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #1cc8ff;
-    text-align: center;
-    color: #cdd9e5;
-    font-weight: bold;
-    transition: 0.3s;
+#achievementsBox h3 {
+    color: #58a6ff;
 }
 
-.achievement.unlocked {
-    background-color: #0ff;
-    color: #0d1117;
-    box-shadow: 0 0 15px #0ff;
+#achievementsList li {
+    margin: 5px 0;
 }
 
-/* ------------------ TRANSITIONS ------------------ */
-button, .nav a, .avatar, .subject-card {
-    transition: 0.3s all ease;
+/* ------------------ DROPDOWN ------------------ */
+select {
+    background-color: #0f161f;
+    color: #58a6ff;
 }
-
