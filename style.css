@@ -1,120 +1,106 @@
-/* Basic Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', Arial, sans-serif;
-}
-
-/* Body & Background */
 body {
-    background-color: #0b1e3a; /* Dark Blue */
-    color: #f0f8ff; /* Light text */
-    min-height: 100vh;
+    margin: 0;
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #121c2c; /* Dark blue background */
+    color: #ffffff;
+    transition: all 0.3s ease;
 }
 
-/* Header */
 header {
-    background-color: #1a4f9c; /* Light Blue Header */
+    background-color: #0a8cff; /* Light blue top banner */
     color: white;
-    padding: 15px 30px;
     display: flex;
     justify-content: space-between;
+    padding: 15px 30px;
     align-items: center;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: background-color 0.3s;
 }
 
-header .logo {
+header:hover {
+    background-color: #007acc;
+}
+
+.logo {
     font-size: 28px;
     font-weight: bold;
 }
 
-nav button {
-    background: #3174d6;
-    border: none;
-    color: white;
-    padding: 10px 15px;
-    margin-left: 10px;
-    border-radius: 6px;
+.nav a {
+    margin-left: 25px;
     cursor: pointer;
-    transition: 0.3s;
-}
-
-nav button:hover {
-    background: #1d5bbf;
-}
-
-/* Cards */
-.card {
-    background-color: #13294b; /* Slightly lighter than background */
-    margin: 30px auto;
-    padding: 25px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 700px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    transition: all 0.3s;
-}
-
-.card:hover {
-    transform: translateY(-3px);
-}
-
-/* Selectors */
-.selectors {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.selectors select {
-    padding: 8px 10px;
-    border-radius: 6px;
-    border: none;
-    font-size: 16px;
-}
-
-/* Feedback */
-#feedback {
-    margin-top: 15px;
     font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-    color: #ffd700;
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s;
 }
 
-/* Input & Button */
+.nav a:hover {
+    color: #ffe600;
+}
+
+.quiz-box {
+    background-color: #1f2a3a;
+    color: #0af;
+    padding: 30px;
+    border-radius: 12px;
+    margin: 40px auto;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+    transition: transform 0.2s;
+}
+
+.quiz-box:hover {
+    transform: scale(1.02);
+}
+
 input[type=text] {
+    padding: 10px;
     width: 80%;
-    padding: 8px 10px;
-    margin-top: 15px;
-    border-radius: 6px;
+    margin-top: 10px;
+    border-radius: 5px;
     border: none;
-    font-size: 16px;
 }
 
 button {
     margin-top: 15px;
-    padding: 10px 15px;
-    border-radius: 6px;
+    padding: 12px 20px;
+    border-radius: 8px;
     border: none;
-    background-color: #3174d6;
-    color: white;
     cursor: pointer;
-    transition: 0.3s;
+    font-size: 16px;
+    background-color: #0af;
+    color: #121c2c;
+    transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #1d5bbf;
+    background-color: #08c;
 }
 
-/* Avatar Buttons */
-.avatar-select button {
-    font-size: 22px;
-    margin: 5px;
-    background: #0b2e5a;
+#feedback {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
-.avatar-select button:hover {
-    background: #14497c;
+#scoreboard {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #0a8cff;
+    color: #121c2c;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #0af;
+    margin-bottom: 15px;
 }
