@@ -1,79 +1,78 @@
 
-// Questions per grade and subject
-const questionsBank = {
-    "JK": {
-        Math: [
-            {q:"1 + 1 = ?", a:"2"},
-            {q:"2 + 3 = ?", a:"5"},
-            {q:"5 - 2 = ?", a:"3"}
-        ],
-        Reading: [
-            {q:"Which word is 'cat' or 'dog'?", a:"cat"},
-            {q:"Which word is 'sun' or 'moon'?", a:"sun"},
-            {q:"Which word is 'apple' or 'banana'?", a:"apple"}
-        ],
-        Science: [
-            {q:"Which is hot: Sun or Moon?", a:"sun"},
-            {q:"Which do fish live in: water or land?", a:"water"},
-            {q:"Which grows on trees: apple or stone?", a:"apple"}
-        ]
-    },
-    "SK": {
-        Math: [
-            {q:"3 + 2 = ?", a:"5"},
-            {q:"4 - 1 = ?", a:"3"},
-            {q:"2 + 5 = ?", a:"7"}
-        ],
-        Reading: [
-            {q:"Which word is 'book' or 'pen'?", a:"book"},
-            {q:"Which word is 'dog' or 'cat'?", a:"dog"},
-            {q:"Which word is 'tree' or 'flower'?", a:"tree"}
-        ],
-        Science: [
-            {q:"Which is a planet: Earth or Sun?", a:"earth"},
-            {q:"Which do plants need to grow: Sun or Rock?", a:"sun"},
-            {q:"Which lives in water: Fish or Dog?", a:"fish"}
-        ]
-    },
-    "Grade 1": {
-        Math: [
-            {q:"5 + 7 = ?", a:"12"},
-            {q:"9 - 4 = ?", a:"5"},
-            {q:"3 + 8 = ?", a:"11"}
-        ],
-        Reading: [
-            {q:"Which word is a fruit: Apple or Chair?", a:"apple"},
-            {q:"Which is an animal: Cat or Book?", a:"cat"},
-            {q:"Which word rhymes with 'hat': Cat or Dog?", a:"cat"}
-        ],
-        Science: [
-            {q:"Which can fly: Bird or Elephant?", a:"bird"},
-            {q:"Which is liquid: Water or Rock?", a:"water"},
-            {q:"Which grows from seeds: Plant or Stone?", a:"plant"}
-        ]
-    },
-    "Grade 2": {
-        Math: [
-            {q:"12 + 8 = ?", a:"20"},
-            {q:"15 - 6 = ?", a:"9"},
-            {q:"7 + 5 = ?", a:"12"}
-        ],
-        Reading: [
-            {q:"Which word is a verb: Run or Table?", a:"run"},
-            {q:"Which is a noun: Apple or Jump?", a:"apple"},
-            {q:"Which word rhymes with 'sun': Fun or Dog?", a:"fun"}
-        ],
-        Science: [
-            {q:"Which planet is closest to Sun?", a:"mercury"},
-            {q:"Which gas do we breathe in?", a:"oxygen"},
-            {q:"Which is a mammal: Whale or Lizard?", a:"whale"}
-        ]
-    },
-    // Add more grades similarly up to Grade 12
+const questionsByGrade = {
+    "JK":[
+        {q:"What color is the sun?", a:"yellow"},
+        {q:"How many fingers do you have?", a:"10"},
+        {q:"Which animal says 'meow'?", a:"cat"}
+    ],
+    "SK":[
+        {q:"What number comes after 3?", a:"4"},
+        {q:"What color is grass?", a:"green"},
+        {q:"Which animal says 'woof'?", a:"dog"}
+    ],
+    "1":[
+        {q:"5 + 2 = ?", a:"7"},
+        {q:"What shape has 3 sides?", a:"triangle"},
+        {q:"What color are bananas?", a:"yellow"}
+    ],
+    "2":[
+        {q:"8 - 3 = ?", a:"5"},
+        {q:"Which season is cold and snowy?", a:"winter"},
+        {q:"Which animal hops and has a pouch?", a:"kangaroo"}
+    ],
+    "3":[
+        {q:"12 ÷ 4 = ?", a:"3"},
+        {q:"What is the capital of Canada?", a:"ottawa"},
+        {q:"How many continents are there?", a:"7"}
+    ],
+    "4":[
+        {q:"9 x 2 = ?", a:"18"},
+        {q:"Water freezes at ___ degrees Celsius?", a:"0"},
+        {q:"Which planet is known as the Red Planet?", a:"mars"}
+    ],
+    "5":[
+        {q:"25 ÷ 5 = ?", a:"5"},
+        {q:"What gas do we breathe in?", a:"oxygen"},
+        {q:"Which organ pumps blood?", a:"heart"}
+    ],
+    "6":[
+        {q:"7 x 6 = ?", a:"42"},
+        {q:"Which planet is closest to the sun?", a:"mercury"},
+        {q:"What is H2O commonly called?", a:"water"}
+    ],
+    "7":[
+        {q:"21 ÷ 7 = ?", a:"3"},
+        {q:"Which organ in humans produces insulin?", a:"pancreas"},
+        {q:"What is the largest planet in our solar system?", a:"jupiter"}
+    ],
+    "8":[
+        {q:"15 x 2 = ?", a:"30"},
+        {q:"Which process do plants use to make food?", a:"photosynthesis"},
+        {q:"What is the boiling point of water in Celsius?", a:"100"}
+    ],
+    "9":[
+        {q:"45 ÷ 9 = ?", a:"5"},
+        {q:"What is the chemical symbol for water?", a:"h2o"},
+        {q:"Which blood cells help fight infection?", a:"white"}
+    ],
+    "10":[
+        {q:"12 x 12 = ?", a:"144"},
+        {q:"Who wrote 'Romeo and Juliet'?", a:"shakespeare"},
+        {q:"What is the powerhouse of the cell?", a:"mitochondria"}
+    ],
+    "11":[
+        {q:"Solve: 3x + 5 = 20", a:"5"},
+        {q:"What is Newton's 2nd Law?", a:"force"},
+        {q:"Which gas is used in photosynthesis?", a:"carbon dioxide"}
+    ],
+    "12":[
+        {q:"Integrate: ∫2x dx", a:"x^2"},
+        {q:"What is the chemical formula for table salt?", a:"nacl"},
+        {q:"What is the main function of the kidneys?", a:"filter"}
+    ]
 };
 
-let grades=["JK","SK","Grade 1","Grade 2"]; // Expand this up to Grade 12
-let currentGrade="JK", currentSubject="Math", currentQuestion=0, score=0, shuffledQuestions=[];
+let currentGrade="JK", currentQuestion=0, score=0, shuffledQuestions=[];
 
 function shuffleArray(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
 
@@ -94,30 +93,36 @@ function updateScore(){
 }
 
 function loadHome(){
-    currentGrade="JK"; currentSubject="Math"; currentQuestion=0; score=0;
+    currentGrade="JK"; currentQuestion=0; score=0;
     document.getElementById("content").innerHTML=`
         <div style="text-align:center; margin: 20px 0;">
             <label for="gradeSelect" style="font-size:20px; font-weight:bold;">Select Grade Level: </label>
             <select id="gradeSelect" onchange="currentGrade=this.value;">
-                ${grades.map(g=>`<option value="${g}">${g}</option>`).join("")}
+                <option value="JK">JK</option>
+                <option value="SK">SK</option>
+                <option value="1">Grade 1</option>
+                <option value="2">Grade 2</option>
+                <option value="3">Grade 3</option>
+                <option value="4">Grade 4</option>
+                <option value="5">Grade 5</option>
+                <option value="6">Grade 6</option>
+                <option value="7">Grade 7</option>
+                <option value="8">Grade 8</option>
+                <option value="9">Grade 9</option>
+                <option value="10">Grade 10</option>
+                <option value="11">Grade 11</option>
+                <option value="12">Grade 12</option>
             </select>
         </div>
         <div class="subject-grid">
-            <div class="subject-card" onclick="chooseSubject('Math')">Math</div>
-            <div class="subject-card" onclick="chooseSubject('Reading')">Reading</div>
-            <div class="subject-card" onclick="chooseSubject('Science')">Science</div>
+            <div class="subject-card" onclick="startTest()">Start Quiz</div>
         </div>`;
     const scoreDiv=document.getElementById("score"); if(scoreDiv) scoreDiv.remove();
 }
 
-function chooseSubject(subject){
-    currentSubject=subject;
-    startTest();
-}
-
 function startTest(){
     currentQuestion=0; score=0;
-    shuffledQuestions=shuffleArray([...questionsBank[currentGrade][currentSubject]]);
+    shuffledQuestions=shuffleArray([...questionsByGrade[currentGrade]]);
     if(!document.getElementById("score")){
         const scoreDiv=document.createElement("div"); scoreDiv.id="score";
         scoreDiv.textContent=`Score: 0 / ${shuffledQuestions.length}`;
@@ -131,7 +136,7 @@ function showQuestion(){
     document.getElementById("content").innerHTML=`
         <div id="feedback"></div>
         <div class="lesson-box">
-            <h2>${currentSubject} Question ${currentQuestion+1}</h2>
+            <h2>${currentGrade} Question ${currentQuestion+1}</h2>
             <p>${q.q}</p>
             <input id="answerInput" type="text" placeholder="Your answer">
             <br>
@@ -151,11 +156,11 @@ function checkAnswer(){
 
 function showResult(){
     const percentage=Math.round((score/shuffledQuestions.length)*100);
-    let msg=percentage>=50?"🎉 You passed!":"❌ You failed!";
+    let msg=percentage===100?"🎉 You passed!":(percentage<=50?"❌ You failed!":"👍 Good try!");
     document.getElementById("content").innerHTML=`
         <div id="feedback"></div>
         <div class="lesson-box">
-            <h2>${currentSubject} Test Completed</h2>
+            <h2>${currentGrade} Test Completed</h2>
             <p>Your Score: ${score} / ${shuffledQuestions.length} (${percentage}%)</p>
             <h3>${msg}</h3>
             <button onclick="loadHome()">Back to Home</button>
