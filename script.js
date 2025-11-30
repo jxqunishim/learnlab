@@ -102,3 +102,129 @@ function loadHome(){
             <select id="subjectSelect">
                 <option value="">Select Subject</option>
                 <option value="Math">Math</option>
+                <option value="Reading">Reading</option>
+                <option value="Science">Science</option>
+                <option value="English">English</option>
+            </select>
+            <button onclick="startQuiz()">Start Quiz</button>
+        </div>
+    `;
+    removeScoreboard();
+}
+
+// ---------------------- START QUIZ ----------------------
+function startQuiz(){
+    selectedGrade=document.getElementById("gradeSelect").value;
+    selectedSubject=document.getElementById("subjectSelect").value;
+    if(!selectedGrade||!selectedSubject){ alert("Select both grade & subject."); return; }
+    currentQuestions=[...questionsByGrade[selectedGrade]];
+    currentQuestions=shuffleArray(currentQuestions);
+    currentQuestionIndex=0; score=0;
+    addScoreboard();
+    loadQuestion();
+}
+
+// ---------------------- LOAD QUESTION ----------------------
+function loadQuestion(){
+    const q=currentQuestions[currentQuestionIndex];
+    let html=`
+        <div class="quiz-box">
+            <h3>Question ${currentQuestionIndex+1} / ${currentQuestions.length}</h3>
+            <p>${q.question}</p>
+            <div id="answerSection">`;
+    // Multiple choice for JK-Grade 8
+    if(q.choices){
+        q.choices.forEach(c=>{
+            html+=`<button class="mc-btn" onclick="submitAnswer('${c}')">${c}</button> `;
+        });
+    } else { // text input for higher grades
+        html+=`<input type="text" id="answerInput" placeholder="Your answer">
+               <br><br>
+               <button onclick="submitAnswer()">Submit</button>`;
+    }
+    html+=`</div><div id="feedback" style="margin-top:15px; font-weight:bold;"></div></div>`;
+    document.getElementById("content").innerHTML=html;
+    updateScoreboard();
+}
+
+// ---------------------- SUBMIT ANSWER ----------------------
+function submitAnswer(choice=null){
+    const q=currentQuestions[currentQuestionIndex];
+    let input=choice!==null? choice : document.getElementById("answerInput").value.trim();
+    const correctAnswer=q.answer;
+    const feedbackDiv=document.getElementById("feedback");
+    if(input.toLowerCase()===correctAnswer.toLowerCase()){
+        score++; feedbackDiv.textContent="Correct! ✅"; feedbackDiv.style.color="#1cc88a";
+    } else {
+        feedbackDiv.textContent=`Wrong! ❌ Answer: ${correctAnswer}`; feedbackDiv.style.color="#e74a3b";
+    }
+    setTimeout(()=>{
+        currentQuestionIndex++;
+        if(currentQuestionIndex<currentQuestions.length){
+            loadQuestion();
+        } else { showFinalScore(); }
+    },1500);
+}
+
+// ---------------------- FINAL SCORE ----------------------
+function showFinalScore(){
+    document.getElementById("content").innerHTML=`
+        <div class="quiz-box">
+            <h2>Quiz Completed!</h2>
+            <p>You scored ${score} / ${currentQuestions.length}</p>
+            <button onclick="loadHome()">Back to Home</button>
+        </div>`;
+    removeScoreboard();
+}
+
+// ---------------------- SCOREBOARD ----------------------
+function addScoreboard(){
+    if(!document.getElementById("scoreboard")){
+        const div=document.createElement("div");
+        div.id="scoreboard";
+        document.body.appendChild(div);
+    }
+    updateScoreboard();
+}
+function updateScoreboard(){
+    const sb=document.getElementById("scoreboard");
+    sb.textContent=`Score: ${score} / ${currentQuestions.length}`;
+}
+function removeScoreboard(){
+    const sb=document.getElementById("scoreboard");
+    if(sb) sb.remove();
+}
+
+// ---------------------- ABOUT ----------------------
+function loadAbout(){
+    document.getElementById("content").innerHTML=`
+        <div class="quiz-box">
+            <h2>About LearnLab</h2>
+            <p>Professional educational platform with quizzes by grade and subject.</p>
+            <p>Contact: jxqunishim@gmail.com</p>
+            <button onclick="loadHome()">Back to Home</button>
+        </div>`;
+    removeScoreboard();
+}
+
+// ---------------------- PROFILE ----------------------
+function loadProfile(){
+    document.getElementById("content").innerHTML=`
+        <div class="quiz-box">
+            <h2>Student Profile</h2>
+            <img class="profile-avatar" src="https://placekitten.com/100/100" alt="Avatar">
+            <p>Name: Guest</p>
+            <p>Achievements: None</p>
+            <button onclick="loadHome()">Back to Home</button>
+        </div>`;
+    removeScoreboard();
+}
+
+// ---------------------- UTILITY ----------------------
+function shuffleArray(array){
+    for(let i=array.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [array[i],array[j]]=[array[j],array[i]];
+    }
+    return array;
+}
